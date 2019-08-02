@@ -7,13 +7,15 @@ import './css/App.css';
 
 function App() {
   return (  
-    <BrowserRouter>
+    /* <BrowserRouter>
       <Switch>
-        <Route exact path="/login" exact component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/additions" component={Additions}/>
         <Route exact path="/statistics" component={Statistics} />
       </Switch>
-    </BrowserRouter>
+    </BrowserRouter> */
+
+    <Login/>
   );
 }
 

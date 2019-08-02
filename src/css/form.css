@@ -1,0 +1,50 @@
+.Form {
+    border : 1px solid #23272B;
+    display: inline-block;
+    text-align: center;
+    margin-top: 50px;
+    padding: 50px;
+    font-size: 19px;
+    background-color: transparent;
+    color : rgb(241, 216, 133);
+    font-family: 'Tajawal', sans-serif;
+    /* will remove it when import the component in other parent component */
+    margin: 150px;
+    background: #000;
+
+}
+
+.Form-field {
+    margin: 20px 0;
+}
+
+.Form-input {
+    width : 250px;
+    margin-right: 5px;
+
+}
+
+.Form-input::placeholder {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.Form-label {
+    margin-left:10px;
+}
+
+.Form-submit {
+    padding: 5px 30px;
+    border-radius: 5px;
+    margin-top:10px;
+    transition: all 0.7s ease-in-out;
+    background: #2f253b;
+    border: 1px solid #3d304e;
+    color: rgb(241, 216, 133);
+}
+
+.Form-submit:hover {
+    background:  #231c2c;
+}
+
+
