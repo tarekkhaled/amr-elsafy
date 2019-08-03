@@ -172,7 +172,11 @@ class Form extends Component {
         if(databaseCheck) {
             const enterSafe = this.checkUserAccess(login_form_student.student_mail,login_form_student.student_password)  
             if(login_form_student.submitSucces && enterSafe) {
+                /** Here To Send Data to Database after success access     */
+                login_form_student.student_mail // final user name 
+                login_form_student.student_password // final user password
                 succesRegister('./') // need to update to profile page
+
             } else {
                 failedRegister()
             }
