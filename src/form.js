@@ -1,7 +1,11 @@
 import React , {Component} from 'react';
-import {succesRegister,failedRegister}from './form_helpers'
+import {checkFromFireBase}from './form_helpers'
 import validator from 'validator' ;
 import './css/form.css';
+
+function fakeFunction () {
+    return 'login failed'
+}
 
 
 class Form extends Component {
@@ -18,24 +22,6 @@ class Form extends Component {
 
     handleChange =  (e) => {
         this.handleWhichForm(e);
-    }
-
-
-    /* Input :: user_mail , user_password  ||  Props Depend  */
-    /* Place For calling the function :: handleSubmit (e) */
-    /* This Function will called in handleSubmit when "databaseCheck flag" be true will depend on the props */
-
-    checkUserAccess = (user_mail,user_password) => {
-        let enterSafe = false ;
-        const {usersDb} = this.props ;
-        usersDb.forEach((user)=>{
-            console.log(user.uEmail)
-            console.log(user.uPassword)
-            if(user.uEmail.toLowerCase() === user_mail.toLowerCase() && user.uPassword === user_password) {
-                enterSafe = true ; 
-            } 
-        })
-        return enterSafe ;
     }
 
     /* Input :: event   || Which Props Depend :: form */
@@ -170,27 +156,21 @@ class Form extends Component {
         const {login_form_student,databaseCheck} = this.state;
         e.preventDefault();
         if(databaseCheck) {
-            const enterSafe = this.checkUserAccess(login_form_student.student_mail,login_form_student.student_password)  
-            if(login_form_student.submitSucces && enterSafe) {
-                /** Here To Send Data to Database after success access     */
-                login_form_student.student_mail // final user name 
-                login_form_student.student_password // final user password
-                succesRegister('./') // need to update to profile page
+            if(login_form_student.submitSucces ) {
+                /*  login_form_student.student_mail  --> final user name to send it to firebase
+                login_form_student.student_password -->   final user password  to send it to firebase */
 
-            } else {
-                failedRegister()
-            }
+                /* Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
+
+                checkFromFireBase(
+                    (fakeFunction)() ,'./')
+
+            } 
         }
 
-        // for all others forms that don't need db Check 
+        // for all others forms will be implement later
 
         else {
-            if(login_form_student.submitSucces) {
-                succesRegister('./') // need to update to profile page
-            } else {
-                failedRegister()
-            }
-
 
         }
     }

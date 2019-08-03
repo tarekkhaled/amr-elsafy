@@ -1,5 +1,13 @@
 import swal from 'sweetalert';
+function checkFromFireBase(firebaseMessage,pathtoGoIFSuccess) {
+    if(firebaseMessage.length > 0) {
+        failedRegister();
+    }
+    else {
+        succesRegister(pathtoGoIFSuccess)
+    }
 
+}
 function succesRegister (pathtoGo) {
     
     swal({
@@ -19,4 +27,4 @@ function failedRegister () {
 }
 
 
-export {succesRegister,failedRegister}
+export {checkFromFireBase} ;
