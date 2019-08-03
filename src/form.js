@@ -1,9 +1,12 @@
 import React , {Component} from 'react';
+import {succesRegister,failedRegister}from './form_helpers'
 import validator from 'validator' ;
 import './css/form.css';
 
+
 class Form extends Component {
     state = { 
+        databaseCheck : (this.props.databaseCheck) ? true : false ,
         login_form_student : {
             student_mail : '',
             student_password : '',
@@ -15,6 +18,24 @@ class Form extends Component {
 
     handleChange =  (e) => {
         this.handleWhichForm(e);
+    }
+
+
+    /* Input :: user_mail , user_password  ||  Props Depend  */
+    /* Place For calling the function :: handleSubmit (e) */
+    /* This Function will called in handleSubmit when "databaseCheck flag" be true will depend on the props */
+
+    checkUserAccess = (user_mail,user_password) => {
+        let enterSafe = false ;
+        const {usersDb} = this.props ;
+        usersDb.forEach((user)=>{
+            console.log(user.uEmail)
+            console.log(user.uPassword)
+            if(user.uEmail.toLowerCase() === user_mail.toLowerCase() && user.uPassword === user_password) {
+                enterSafe = true ; 
+            } 
+        })
+        return enterSafe ;
     }
 
     /* Input :: event   || Which Props Depend :: form */
@@ -146,13 +167,27 @@ class Form extends Component {
     /* This Function handle Will check if Form Vaild will redirect to Profile Page  */
 
     handleSubmit= (e) => {
-        const {login_form_student} = this.state;
+        const {login_form_student,databaseCheck} = this.state;
         e.preventDefault();
-        if(login_form_student.submitSucces) {
-            alert('submit success');
-            window.location.reload() /* will be updated to Profile for user,assistant,amrElsafiy */
-        } else {
-            alert('submit fail')
+        if(databaseCheck) {
+            const enterSafe = this.checkUserAccess(login_form_student.student_mail,login_form_student.student_password)  
+            if(login_form_student.submitSucces && enterSafe) {
+                succesRegister('./') // need to update to profile page
+            } else {
+                failedRegister()
+            }
+        }
+
+        // for all others forms that don't need db Check 
+
+        else {
+            if(login_form_student.submitSucces) {
+                succesRegister('./') // need to update to profile page
+            } else {
+                failedRegister()
+            }
+
+
         }
     }
 

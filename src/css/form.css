@@ -46,7 +46,8 @@
 .Form-error {
     border : 1px solid red;
     margin-top:5px;
-    color : #ec1010;
+    color : red;
+    font-size: 16px;
     font-style: italic;
 }
 
