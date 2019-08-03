@@ -1,6 +1,7 @@
 import swal from 'sweetalert';
 
 function succesRegister (pathtoGo) {
+    
     swal({
         title: "Good job!",
         text: "تم التسجيل الدخول بنجاح",

@@ -21,13 +21,6 @@ class Login extends Component {
         ]
     }
 
-    switchForms = (e) => {
-        let newstate = ! this.state.register_as_student ;
-        this.setState({
-            register_as_student : newstate
-        })
-    }
-
     render () {
         return (
             <div className="Login">
