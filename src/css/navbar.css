@@ -1,0 +1,13 @@
+.Navbar {
+    height: 50px;
+    position: fixed;
+    z-index: 222;
+    width : 100%;
+    background: #2f253b;
+    text-align: center;
+}
+
+.Navbar img {
+    width: 80px;
+    margin-top: -15px;
+}

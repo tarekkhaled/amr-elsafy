@@ -1,0 +1,8 @@
+.Login {
+    background-color: #13131f;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

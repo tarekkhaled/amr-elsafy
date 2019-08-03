@@ -1,26 +1,21 @@
 .Form {
-    border : 1px solid #23272B;
+    border : 1.4px solid rgb(34, 38, 42);
     display: inline-block;
     text-align: center;
-    margin-top: 50px;
     padding: 50px;
-    font-size: 19px;
-    background-color: transparent;
+    font-size: 18px;
+    background-color: #141423;
     color : rgb(241, 216, 133);
     font-family: 'Tajawal', sans-serif;
-    /* will remove it when import the component in other parent component */
-    margin: 150px;
-    background: #000;
 
 }
 
 .Form-field {
-    margin: 20px 0;
+    display: grid;
 }
 
 .Form-input {
     width : 250px;
-    margin-right: 5px;
 
 }
 
@@ -31,13 +26,14 @@
 
 .Form-label {
     margin-left:10px;
+
 }
 
 .Form-submit {
     padding: 5px 30px;
     border-radius: 5px;
     margin-top:10px;
-    transition: all 0.7s ease-in-out;
+    transition: all 0.6s ease-in-out;
     background: #2f253b;
     border: 1px solid #3d304e;
     color: rgb(241, 216, 133);
@@ -45,6 +41,13 @@
 
 .Form-submit:hover {
     background:  #231c2c;
+}
+
+.Form-error {
+    border : 1px solid red;
+    margin-top:5px;
+    color : #ec1010;
+    font-style: italic;
 }
 
 

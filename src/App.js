@@ -4,18 +4,15 @@ import Login from './login';
 import Additions from './additions';
 import Statistics from './statistics';
 import './css/App.css';
+import Navbar from './navbar';
 
 function App() {
   return (  
-    /* <BrowserRouter>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/additions" component={Additions}/>
-        <Route exact path="/statistics" component={Statistics} />
-      </Switch>
-    </BrowserRouter> */
-
-    <Login/>
+    <div>
+      <Navbar/>
+      <Login/>
+    </div>
+    
   );
 }
 
