@@ -10,7 +10,7 @@ function App() {
   return (  
     <div>
       <Navbar/>
-      <Login/>
+      <Additions/>
     </div>
     
   );

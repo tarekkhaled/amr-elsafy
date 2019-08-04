@@ -3,19 +3,21 @@
     display: inline-block;
     text-align: center;
     padding: 50px;
-    font-size: 18px;
+    font-size: 17px;
     background-color: #141423;
-    color : rgb(241, 216, 133);
     font-family: 'Tajawal', sans-serif;
 
 }
 
 .Form-field {
     display: grid;
+    grid-template-areas: 'one two';
+    grid-column-gap: 15px;
+
 }
 
 .Form-input {
-    width : 250px;
+    width : 275px;
 
 }
 
@@ -37,6 +39,7 @@
     background: #2f253b;
     border: 1px solid #3d304e;
     color: rgb(241, 216, 133);
+
 }
 
 .Form-submit:hover {
@@ -49,6 +52,18 @@
     color : red;
     font-size: 16px;
     font-style: italic;
+    width : 275px;
 }
 
 
+
+@media screen and (max-width: 520px) {
+    .Form-field {
+      display: flex;
+      flex-direction: column-reverse;  
+    }
+    .Form-submit {
+        margin-top: 20px;
+    }
+  }
+  
