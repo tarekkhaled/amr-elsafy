@@ -10,7 +10,6 @@ function fakeFunction () {
 
 class Form extends Component {
     state = { 
-        databaseCheck : (this.props.databaseCheck) ? true : false ,
         login : {
             student_mail : '',
             student_password : '',
@@ -90,10 +89,11 @@ class Form extends Component {
                 const inputvalue_part2 = this.props[key].input_name;
                 const inputvalue_error = this.props[key].error
                 inputsToShown.push(
-                    
+   
                     <div className="Form-field" key={this.props[key].label_name}>
-                        <label className="Form-label" htmlFor={this.props[key].input_name}>{`${this.props[key].label_name}`}</label>
                         <input className="Form-input" value = {this.state[input_value_part1][inputvalue_part2]}  id={this.props[key].input_name} onChange={this.handleChange} type={this.props[key].type} placeholder={`${this.props[key].placeholder}`} name={this.props[key].input_name} />
+                        <label className="Form-label" htmlFor={this.props[key].input_name}>{`${this.props[key].label_name}`}</label>
+                        
                         <p key={this.props[key].label_name} className={`Form-error`} style={(this.state[input_value_part1][inputvalue_error] === null || this.state[input_value_part1][inputvalue_error] === 'no') ? {border : 'none'} : {border : '1px solid red'}}>{this.state[input_value_part1][inputvalue_error] === 'no' ? null : this.state[input_value_part1][inputvalue_error] }</p>
                        
                 </div>)
@@ -111,36 +111,28 @@ class Form extends Component {
     /* This Function handle Will check if Form Vaild will redirect to Profile Page  */
 
     handleSubmit= (e) => {
-        const {login,databaseCheck} = this.state;
+        const {login} = this.state;
         e.preventDefault();
-        if(databaseCheck) {
-            if(login.submitSucces ) {
+        if(login.submitSucces ) {
                 /*  login.student_mail  --> final user name to send it to firebase
                 login.student_password -->   final user password  to send it to firebase */
 
                 /* Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
-
                 checkFromFireBase(
                     (fakeFunction)() ,'./')
-
             } 
             else {
                 failedRegister()
             }
-        }
-
-        // for all others forms will be implement later
-
-        else {
-
-        }
     }
+    
 
     render () {
         return (
             <form className="Form">
                 {this.renderTheComingForm()}
-            <button className="Form-submit" onClick = {this.handleSubmit}type="submit">تسجيل الدخول</button>
+                {(this.props.buttonSubmit &&<button className="Form-submit" onClick = {this.handleSubmit}type="submit">تسجيل الدخول</button>
+)}
             </form>
         )
     }

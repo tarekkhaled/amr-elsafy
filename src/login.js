@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import Form from './form';
+import {createInputField} from './helpers';
 import './css/login.css';
 
 class Login extends Component {
@@ -8,25 +9,11 @@ class Login extends Component {
         return (
             <div className="Login">
                 <Form 
-                    form =  'login_form_student'
-                    databaseCheck = 'true'
-                    input_field1  =  {{
-                                label_name :": البريد الالكتروني",
-                                type : "email",
-                                input_name : "student_mail",
-                                placeholder : " ... البريد الالكتروني",
-                                error : 'error_student_mail'
+                    form =  'login'
+                    buttonSubmit = {true}
+                    input_field1 = {createInputField(': البريد الالكتروني','email','student_mail','... البريد الالكتروني','error_student_mail')}
+                    input_field2 = {createInputField(': كلمة السر','password','student_password','... كلمة السر','error_student_password')}
 
-                    }}
-                    input_field2 =  { {
-                                label_name : ": كلمة السر",
-                                type : "password",
-                                input_name : "student_password",
-                                placeholder : " ... كلمة السر",
-                                error : 'error_student_password'
-
-                                }
-                    }
                 />
             </div>
         )
