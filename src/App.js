@@ -9,10 +9,15 @@ import Navbar from './navbar';
 function App() {
   return (  
     <div>
-      <Navbar/>
-      <Additions/>
+    <Navbar/>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path = '/login' component = {Login}></Route>
+        <Route exact path = '/additions' component = {Additions}></Route>
+        </Switch>
+    </BrowserRouter>
     </div>
-    
+       
   );
 }
 
