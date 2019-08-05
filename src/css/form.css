@@ -13,8 +13,18 @@
     display: grid;
     grid-template-areas: 'one two';
     grid-column-gap: 15px;
+    margin-bottom: 15px;
 
 }
+
+.Form-title {
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid #231c2c
+}
+
+
 
 .Form-input {
     width : 275px;

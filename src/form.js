@@ -130,6 +130,7 @@ class Form extends Component {
     render () {
         return (
             <form className="Form">
+                {this.props.title && <h5 className="Form-title">{this.props.title}</h5>}
                 {this.renderTheComingForm()}
                 {(this.props.buttonSubmit &&<button className="Form-submit" onClick = {this.handleSubmit}type="submit">تسجيل الدخول</button>
 )}
