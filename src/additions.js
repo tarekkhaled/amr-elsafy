@@ -36,7 +36,6 @@ class Additions extends Component {
                 return addAssistantForm();
             case 'center':
                 return addCenterForm();
-                break;
             default:
                 break;
         }
