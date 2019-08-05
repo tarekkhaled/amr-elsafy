@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import Form from './form';
-import {createInputField} from './helpers';
+import {createInputField} from './form_helpers';
 import './css/login.css';
 
 class Login extends Component {
