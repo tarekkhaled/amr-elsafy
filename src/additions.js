@@ -1,23 +1,42 @@
 import React , {Component} from 'react';
 import './css/additions.css';
-import Form from './form' ; 
-import {createInputField,boss_nav,assistant_nav} from './helpers';
+import {boss_nav,assistant_nav,whatElementFireTheEvent,addAssistantForm,addCenterForm} from './additions_helpers';
 
 
 class Additions extends Component {
     state = {
-        whichForm : 'add_student',
         whoEnter : 'boss', // boss , assistant  , student 
-        active : 'session'
+        active : 'assistant'
     }
-    sendWhichForm = () => {
-        const {whichForm} = this.state;
-        switch (whichForm) {
-            case 'add_student':
-                return <Form 
-                    form =  'login'
-                    input_field10 = {createInputField(': البريد الالكتروني','email','student_mail','... البريد الالكتروني','error_student_mail')}
-                />              
+  
+    switchActive = (e) => {   
+        switch (whatElementFireTheEvent(e)) {
+            case 'student_li':
+                this.setState({active : 'student'})
+                break;
+            case 'assistant_li':
+                this.setState({active : 'assistant'})
+                break;
+            case 'session_li':
+                this.setState({active : 'session'})
+                break;
+            case 'center_li':
+                this.setState({active : 'center'})
+                break;
+            default:
+                break;
+        }
+    }
+    sendWhichForm = ({active}) => {
+
+        switch (active) {
+            case 'student':
+                break;
+            case 'assistant':
+                return addAssistantForm();
+            case 'center':
+                return addCenterForm();
+                break;
             default:
                 break;
         }
@@ -38,11 +57,13 @@ class Additions extends Component {
     render () {
         return (
             <div className="Additions">
-                <ul className="Additions-cards">
-    
+                <ul className="Additions-cards" onClick={this.switchActive}>
                     {this.handleWhichNavToShow()}
-                  
                 </ul> 
+                <div>
+                        {this.sendWhichForm(this.state)}                  
+
+                </div>
             </div>
         )
     }
