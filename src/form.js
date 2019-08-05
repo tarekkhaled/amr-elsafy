@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import {checkFromFireBase,failedRegister}from './helpers'
+import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields}from './form_helpers'
 import validator from 'validator' ;
 import './css/form.css';
 
@@ -17,6 +17,27 @@ class Form extends Component {
             error_student_password : null, // 1 :: means is empty 
             submitSucces : false
         }, 
+        login_assistant : {
+            assistant_mail : '',
+            assistant_number : '',
+            assistant_firstName : '',
+            assistant_lastName : '',
+            error_assistant_mail : null,
+            error_assistant_number : null ,
+            error_assistant_firstName : null ,
+            error_assistant_lastName : null ,
+            submitSucces : false 
+
+        },
+        login_center : {
+            center_name : '',
+            center_number : '',
+            center_address : '',
+            error_center_name : null ,
+            error_center_address : null,
+            error_center_number : null,
+            submitSucces : false 
+        }
     }
 
     handleChange =  (e) => {
@@ -30,42 +51,113 @@ class Form extends Component {
         const {form} = this.props ; 
         switch (form) {
             case 'login':
-                    this.updateStudentForm(e);
-                break;
-        
+                this.updateStudentForm(e);
+            break;
+            case 'login_assistant' :
+                this.updateAssistantForm(e);
+            break;
+            case 'login_center' :
+                this.updateCenterForm(e);
+            break;
             default:
                 break;
         }
     }
     
-    updateStudentFormINState = (e,prop,value,boolvalue) => {
+    updateAnyFormFieldINState = (e,login_,prop,value,boolvalue) => {
         this.setState({
-            login : {...this.state.login,[prop] : value ,'submitSucces' : boolvalue ,[e.target.name] : e.target.value}
+            [login_] : {...this.state[login_],[prop] : value ,'submitSucces' : boolvalue ,[e.target.name] : e.target.value}
         })
     }
 
+
+    updateCenterForm = (e)=> {
+        const {login_center} = this.state;
+        switch (e.target.name) {
+            case "center_name":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_center','error_center_name','اسم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_center','error_center_name','no',vaildSubmitFields(login_center,'error_center_name'));  
+            break;
+            case "center_number":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_center','error_center_number','رقم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_center','error_center_number','no',vaildSubmitFields(login_center,'error_center_number'));  
+            break;
+            case "center_address":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_center','error_center_address','اسم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_center','error_center_address','no',vaildSubmitFields(login_center,'error_center_address'));  
+            break;
+          
+            default:
+                break;
+        }
+    }
+
+
+    updateAssistantForm = (e) => {
+        const {login_assistant} = this.state; 
+        switch (e.target.name) {
+            case "assistant_mail":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_mail',"البريد الالكتروني مطلوب", false);
+                else if(!validator.isEmail(e.target.value)) 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_mail','تاكد من البريد الالكتروني', false)
+                else 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_mail','no', vaildSubmitFields(login_assistant,'error_assistant_mail'));
+                break;
+            case "assistant_number" : // empty string 
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_number','رقم المحمول مطلوب', false);
+                else 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_number','no', vaildSubmitFields(login_assistant,'error_assistant_number'));  
+                break;
+
+                case "assistant_firstName" : // empty string 
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_firstName','االاسم الاول مطلوب', false);
+                else 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_firstName','no', vaildSubmitFields(login_assistant,'error_assistant_firstName'));  
+                break;
+
+                case "assistant_lastName" : // empty string 
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_lastName','اسم العائله مطلوب', false);
+                else 
+                    this.updateAnyFormFieldINState(e,'login_assistant','error_assistant_lastName','no', vaildSubmitFields(login_assistant,'error_assistant_lastName'));  
+                break;
+                default:
+                    break;
+            }
+    } 
+
+    
     /* Input :: event  || Which Props Depend :: None */
     /* Place For calling the function :: handleWhichForm (e) */
     /* Depend on this.State (Object of "form Name coming from Props" and it's properties) */
     /* This Function handle client-server-errors and update every state for all inputs of the field when changed  */
     
     updateStudentForm = (e) => {
-        const {login} = this.state; 
-        console.log(e.target.name)
+        const {login} = this.state;
         switch (e.target.name) {
             case "student_mail":
                 if(!e.target.value) 
-                    this.updateStudentFormINState(e,'error_student_mail',"البريد الالكتروني مطلوب", false);
+                    this.updateAnyFormFieldINState(e,'login','error_student_mail',"البريد الالكتروني مطلوب", false);
                 else if(!validator.isEmail(e.target.value)) 
-                    this.updateStudentFormINState(e,'error_student_mail','تاكد من البريد الالكتروني', false);
+                    this.updateAnyFormFieldINState(e,'login','error_student_mail','تاكد من البريد الالكتروني', false);
                 else 
-                    this.updateStudentFormINState(e,'error_student_mail','no', (login.error_student_password === 'no') ? true : false);
+                    this.updateAnyFormFieldINState(e,'login','error_student_mail','no', 
+                    vaildSubmitFields(login,'error_student_mail'));
                 break;
             case "student_password" : // empty string 
                 if(!e.target.value) 
-                    this.updateStudentFormINState(e,'error_student_password','كلمة السر مطلوبة', false);
+                    this.updateAnyFormFieldINState(e,'login','error_student_password','كلمة السر مطلوبة', false);
                 else 
-                this.updateStudentFormINState(e,'error_student_password','no', (login.error_student_mail=== 'no') ? true : false);  
+                this.updateAnyFormFieldINState(e,'login','error_student_password','no',vaildSubmitFields(login,'error_student_password'));  
             break;
             default:
                 break;
@@ -83,9 +175,8 @@ class Form extends Component {
         const input_value_part1 = this.props.form;
         
         for (let key in this.props) {
-            if(`${key}`.includes('_field'))
+            if(`${key}`.includes('input_field'))
             {
-                console.log(this.props[key]);
                 const inputvalue_part2 = this.props[key].input_name;
                 const inputvalue_error = this.props[key].error
                 inputsToShown.push(
@@ -111,28 +202,57 @@ class Form extends Component {
     /* This Function handle Will check if Form Vaild will redirect to Profile Page  */
 
     handleSubmit= (e) => {
-        const {login} = this.state;
         e.preventDefault();
-        if(login.submitSucces ) {
-                /*  login.student_mail  --> final user name to send it to firebase
-                login.student_password -->   final user password  to send it to firebase */
-
-                /* Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
-                checkFromFireBase(
-                    (fakeFunction)() ,'./')
-            } 
-            else {
-                failedRegister()
-            }
+        const {form} = this.props ; 
+        const {login,login_assistant,login_center} = this.state;
+        switch (form) {
+            case 'login':
+                    if(login.submitSucces) {
+                        console.log('done')
+                            /*  login.student_mail  --> final user name to send it to firebase
+                            login.student_password -->   final user password  to send it to firebase */
+            
+                            /* Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
+                            checkFromFireBase(
+                                (fakeFunction)() ,'./')
+                        } 
+                        else {
+                            failedRegister()
+                        }
+                
+            break;
+            case 'login_assistant': 
+                if(login_assistant.submitSucces)
+                    succesRegister('additions',`بنجاح ${login_assistant.assistant_firstName} تم تسجيل`)
+                else 
+                    console.log('sad')
+            break;
+            case 'login_center': 
+                if(login_center.submitSucces)
+                    succesRegister('/additions',` تم تسجيل ${login_center.center_name} بنجاح`)
+                else 
+                    console.log('sad')
+            break;
+        
+            default:
+                break;
+        }
+       
     }
     
 
+    handleDropDowns = (e) => {
+        // will be implement after today isa 
+    }
+
     render () {
+        const {title,buttonSubmit,haveDropDowns} = this.props;
         return (
             <form className="Form">
-                {this.props.title && <h5 className="Form-title">{this.props.title}</h5>}
+                {title && <h5 className="Form-title">{title}</h5>}
                 {this.renderTheComingForm()}
-                {(this.props.buttonSubmit &&<button className="Form-submit" onClick = {this.handleSubmit}type="submit">تسجيل الدخول</button>
+                {haveDropDowns && this.handleDropDowns}
+                {(buttonSubmit &&<button className="Form-submit" onClick = {this.handleSubmit}type="submit">تسجيل الدخول</button>
 )}
             </form>
         )
