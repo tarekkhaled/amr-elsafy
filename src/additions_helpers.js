@@ -1,5 +1,5 @@
 import React from 'react' ;
-import {createInputField} from './form_helpers';
+import {createInputField,createDropDownField} from './form_helpers';
 import Form from './form';
 
 
@@ -15,6 +15,36 @@ function addAssistantForm () {
     />             
 }
 
+
+function addSessionForm (centerArray,dayArray,timeStartArray,timeEndArray) {
+    return <Form
+        title = "اضافة مجموعة"
+        form = "login_session"
+        buttonSubmit = 'true'
+        dropDown_field_center = {createDropDownField('center-select',centerArray,'اختار السنتر')}
+        dropDown_field_day = {createDropDownField('day-select',dayArray,'اختار اليوم')}
+        dropDown_field_timeStart = {createDropDownField('timeStart-select',timeStartArray,'اختار بدايه الحصة')}
+        dropDown_field_timeEnd = {createDropDownField('timeEnd-select',timeEndArray,'اختار نهايه الحصة')}
+    />
+}
+
+function addStudentForm(centerArray,sessionArray) {
+    return <Form
+        title = "اضافة طالب"
+        form = "login_student"
+        buttonSubmit = "true"
+        input_field1 = {createInputField(': اسم الطالب','text','student_fullName','... اسم الطالب','error_student_fullName')}
+        input_field2 = {createInputField(': مدرسة الطالب','text','student_school','... مدرسة الطالب','error_student_school')}
+        input_field3 = {createInputField('عنوان الطالب','text','student_address','... عنوان الطالب','error_student_address')}
+        input_field4 = {createInputField(': بريد الطالب','email','student_mail','... بريد الطالب','error_student_mail')}
+        input_field5 = {createInputField('تليفون الطالب','number','student_number','... تليفون الطالب','error_student_number')}
+        input_field6 = {createInputField('تليفون الاب','number','father_number','... تليفون الاب','error_father_number')}
+        dropDown_field_center = {createDropDownField('center-select',centerArray,'اختار السنتر')}
+        dropDown_field_session= {createDropDownField('session-select',sessionArray,'اختار المجموعة')}
+
+
+    />
+}
 
 function addCenterForm() {
     return <Form 
@@ -66,4 +96,4 @@ function whatElementFireTheEvent (e) {
     }
 }
 
-export {addAssistantForm,boss_nav,whatElementFireTheEvent,assistant_nav,addCenterForm};
+export {addSessionForm,addAssistantForm,boss_nav,whatElementFireTheEvent,assistant_nav,addCenterForm,addStudentForm};
