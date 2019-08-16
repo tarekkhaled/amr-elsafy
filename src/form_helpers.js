@@ -12,7 +12,13 @@ function createInputField (label,type,name,placeholder,errorPlace) {
 
 }
 
-
+function createDropDownField (selectFor,selectArray,selectName) {
+    return {
+        selectFor,
+        selectArray,
+        selectName
+    }
+}
 function vaildSubmitFields (obb,currentField) {
     let checkFlag = true ; 
     for (const key in obb) {
@@ -52,4 +58,4 @@ function failedRegister () {
 }
 
 
-export {createInputField,checkFromFireBase,failedRegister,vaildSubmitFields,succesRegister} ;
+export {createInputField,createDropDownField,checkFromFireBase,failedRegister,vaildSubmitFields,succesRegister} ;
