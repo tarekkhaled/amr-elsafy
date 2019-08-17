@@ -380,7 +380,6 @@ export default withStyles(styles)(class Form extends Component {
             dropDown_field_day,
             dropDown_field_timeStart,
             dropDown_field_timeEnd,
-            dropDown_field_session,
             dropDown_field_center_student,
             classes
         } = this.props;
@@ -453,11 +452,10 @@ export default withStyles(styles)(class Form extends Component {
         switch (form) {
             case 'login':
                     if(login.submitSucces) {
-                        console.log('done')
                             /*  login.student_mail  --> final user name to send it to firebase
                             login.student_password -->   final user password  to send it to firebase */
             
-                            /* Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
+                            /* khaled :: Replace function below "fakeFunction" with the function from firebase and remove the fake function line 6 because it will be garbage function :"D */
                             checkFromFireBase(
                                 (fakeFunction)() ,'./')
                         } 
@@ -470,12 +468,15 @@ export default withStyles(styles)(class Form extends Component {
                 if(login_assistant.submitSucces)
 
                     succesRegister('additions',(` تم تسجيل ${login_assistant.assistant_firstName} بنجاح`))
+                    /* khaled :: heres mean that student is added correctly and all data you want to send it to firebase will be in the login_assistant object inside this.states */
+                    
                 else 
                     failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
             case 'login_center': 
                 if(login_center.submitSucces)
                     succesRegister('/additions',` تم تسجيل ${login_center.center_name} بنجاح`)
+                    /* khaled :: heres mean that center is added correctly and all data you want to send it to firebase will be in the login_center object inside this.states */
                 else 
                     failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
@@ -483,6 +484,8 @@ export default withStyles(styles)(class Form extends Component {
             case 'login_student': 
             if(login_student.submitSucces)
                 succesRegister('/additions',` تم تسجيل ${login_student.student_fullName} بنجاح`)
+                /* khaled :: heres mean that student is added correctly and all data you want to send it to firebase will be in the login_student object inside this.states */
+                
             else 
                 failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
@@ -490,6 +493,7 @@ export default withStyles(styles)(class Form extends Component {
             case 'login_session': 
             if(login_session.submitSucces)
                 succesRegister('/additions', `${login_session.timeStart_select} تم تسجيل مجموعة ` )
+                /* khaled :: heres mean that student is added correctly and all data you want to send it to firebase will be in the login_session object inside this.states */
             else 
                 failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
