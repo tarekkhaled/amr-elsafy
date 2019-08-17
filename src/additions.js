@@ -97,6 +97,8 @@ class Additions extends Component {
                 break;
         }
     }
+
+    
     render () {
         return (
             <div className="Additions">

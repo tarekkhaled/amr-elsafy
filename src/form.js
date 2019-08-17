@@ -1,19 +1,15 @@
 import React , {Component} from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import {withStyles} from '@material-ui/styles';
 import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields,renderDropDown}from './form_helpers'
 import validator from 'validator' ;
 import './css/form.css';
-const arabic = /[\u0600-\u06FF]/;
 
 
 function fakeFunction () {
     return 'login failed'
 }
 
+/* khaled :: this will be removed and add the firebase function that return the sessions for the center*/
 function bringTheSessionsOFSpecficCenter (oob,center) {
     return oob[center];
 }
@@ -48,8 +44,8 @@ export default withStyles(styles)(class Form extends Component {
         login : {
             student_mail : '',
             student_password : '',
-            error_student_mail : null , // 1 :: means is empty , 2 :: means is not vaild
-            error_student_password : null, // 1 :: means is empty 
+            error_student_mail : null , 
+            error_student_password : null, 
             submitSucces : false
         }, 
         login_assistant : {
@@ -110,7 +106,7 @@ export default withStyles(styles)(class Form extends Component {
     }
 
     /* Input :: event   || Which Props Depend :: form */
-    /* Place For calling the function :: onChange in any input field  (e) */
+    /* Place For calling the function :: onChange in any input field  (e)  in render function */
     /* This function just calling handleWhichForm which in turn choose what the form is running write now and after that send the right function needed for update the states in the form */
 
     handleChange =  (e) => {
@@ -432,12 +428,13 @@ export default withStyles(styles)(class Form extends Component {
         }
     }
 
+        /* khaled :: here after the center selected session option will be shown*/
         if(center_select_student) {
             const dropDown_field_session_student = {
                 selectFor : 'session_select_student',
                 selectName : 'اختار المجموعة',
             }
-            inputsToShown.push(renderDropDown('session_select',classes,dropDown_field_session_student,this.handleChange,session_select_student,bringTheSessionsOFSpecficCenter(this.state,center_select_student)))
+            inputsToShown.push(renderDropDown('session_select',classes,dropDown_field_session_student,this.handleChange,session_select_student,/* khaled :: this function will be replaced by the function from firebase ana 3arf ank 4a8l id bs ana kont btest b2asm al center b2a  */bringTheSessionsOFSpecficCenter(this.state,center_select_student)))
 
         }
 
