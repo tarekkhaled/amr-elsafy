@@ -21,14 +21,14 @@ function addSessionForm (centerArray,dayArray,timeStartArray,timeEndArray) {
         title = "اضافة مجموعة"
         form = "login_session"
         buttonSubmit = 'true'
-        dropDown_field_center = {createDropDownField('center-select',centerArray,'اختار السنتر')}
-        dropDown_field_day = {createDropDownField('day-select',dayArray,'اختار اليوم')}
-        dropDown_field_timeStart = {createDropDownField('timeStart-select',timeStartArray,'اختار بدايه الحصة')}
-        dropDown_field_timeEnd = {createDropDownField('timeEnd-select',timeEndArray,'اختار نهايه الحصة')}
+        dropDown_field_center = {createDropDownField('center_select',centerArray,'اختار السنتر')}
+        dropDown_field_day = {createDropDownField('day_select',dayArray,'اختار اليوم')}
+        dropDown_field_timeStart = {createDropDownField('timeStart_select',timeStartArray,'اختار بدايه الحصة')}
+        dropDown_field_timeEnd = {createDropDownField('timeEnd_select',timeEndArray,'اختار نهايه الحصة')}
     />
 }
 
-function addStudentForm(centerArray,sessionArray) {
+function addStudentForm(centerArray) {
     return <Form
         title = "اضافة طالب"
         form = "login_student"
@@ -39,8 +39,7 @@ function addStudentForm(centerArray,sessionArray) {
         input_field4 = {createInputField(': بريد الطالب','email','student_mail','... بريد الطالب','error_student_mail')}
         input_field5 = {createInputField('تليفون الطالب','number','student_number','... تليفون الطالب','error_student_number')}
         input_field6 = {createInputField('تليفون الاب','number','father_number','... تليفون الاب','error_father_number')}
-        dropDown_field_center = {createDropDownField('center-select',centerArray,'اختار السنتر')}
-        dropDown_field_session= {createDropDownField('session-select',sessionArray,'اختار المجموعة')}
+        dropDown_field_center_student = {createDropDownField('center_select_student',centerArray,'اختار السنتر')}
 
 
     />
