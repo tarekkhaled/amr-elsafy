@@ -4,13 +4,20 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import {withStyles} from '@material-ui/styles';
-import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields}from './form_helpers'
+import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields,renderDropDown}from './form_helpers'
 import validator from 'validator' ;
 import './css/form.css';
+const arabic = /[\u0600-\u06FF]/;
+
 
 function fakeFunction () {
     return 'login failed'
 }
+
+function bringTheSessionsOFSpecficCenter (oob,center) {
+    return oob[center];
+}
+
 
 const styles = theme => ({
     FormControl : {
@@ -25,12 +32,14 @@ const styles = theme => ({
         fontFamily : 'Tajawal , sans-serif'
     },
     Select : {
-        color : 'white'
+        textAlign : 'right',
+        color : '#8a8a8a'
     },Menu : {
         display: 'flex',
         justifyContent: 'flex-end',
         fontFamily : 'Tajawal , sans-serif',
-        fontWeight : '600'
+        fontWeight : '600',
+
     }
 })
 
@@ -71,19 +80,43 @@ export default withStyles(styles)(class Form extends Component {
             student_school : '',
             student_mail : '',
             father_number : '',
+            center_select_student : '',
+            session_select_student : '',
             error_student_fullName : null,
             error_student_number : null,
             error_student_address : null,
             error_student_school : null,
             error_student_mail : null,
             error_father_number : null,
+            error_center_select_student : null,
+            error_session_select_student : null,
+            isCenterSelected : false,
             submitSucces : false
-        }
+        },
+        login_session : {
+            center_select : '',
+            day_select : '',
+            timeStart_select : '',
+            timeEnd_select : '',
+            error_center_select : '',
+            error_day_select : '',
+            error_timeStart_select : '',
+            error_timeEnd_select : '',
+            submitSucces : false 
+        },
+
+        'سنتر دار الحكمة' : ['الحد من 2 لي 5','الجمعة من 2 لي 5','السبت من 2 لي 5','الاتنين من 2 لي 5'],
+        'سنتر الحجاز' : ['الحد من 2 لي 5','الجمعة من 2 لي 5','السبت من 2 لي 5','الاتنين من 2 لي 5']
     }
+
+    /* Input :: event   || Which Props Depend :: form */
+    /* Place For calling the function :: onChange in any input field  (e) */
+    /* This function just calling handleWhichForm which in turn choose what the form is running write now and after that send the right function needed for update the states in the form */
 
     handleChange =  (e) => {
         this.handleWhichForm(e);
     }
+
 
     /* Input :: event   || Which Props Depend :: form */
     /* Place For calling the function :: handleChange (e) */
@@ -103,18 +136,18 @@ export default withStyles(styles)(class Form extends Component {
             case 'login_student' :
                     this.updateStudentForm(e);
                 break;
+            case 'login_session' :
+                    this.updateSessionForm(e);
+                break;
             default:
                 break;
         }
     }
-    
-    updateAnyFormFieldINState = (e,login_,prop,value,boolvalue) => {
-        this.setState({
-            [login_] : {...this.state[login_],[prop] : value ,'submitSucces' : boolvalue ,[e.target.name] : e.target.value}
-        })
-    }
-
-
+ 
+    /* Input :: event   || In Charge of updating the states in "login_center" */
+    /*  controlled Component*/
+    /* Place For calling the function :: handleWhichForm case "login_center" */
+    /* This Function in charge of update "center form" in states and handle the errors shown in the form too*/
     updateCenterForm = (e)=> {
         const {login_center} = this.state;
         switch (e.target.name) {
@@ -142,6 +175,49 @@ export default withStyles(styles)(class Form extends Component {
         }
     }
 
+    /* Input :: event   || In Charge of updating the states in "login_session" */
+    /*  controlled Component*/
+    /* Place For calling the function :: handleWhichForm case "login_session" */
+    /* This Function in charge of update  "essions form" in states and handle the errors shown in the form too*/
+
+    updateSessionForm = (e)=> {
+        const {login_session} = this.state;
+        switch (e.target.name) {
+            case "center_select":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_session','error_center_select','اسم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_session','error_center_select','no',vaildSubmitFields(login_session,'error_center_select'));  
+            break;
+            case "day_select":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_session','error_day_select','رقم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_session','error_day_select','no',vaildSubmitFields(login_session,'error_day_select'));  
+            break;
+            case "timeStart_select":
+                if(!e.target.value) 
+                    this.updateAnyFormFieldINState(e,'login_session','error_timeStart_select','اسم السنتر مطلوب', false);
+                else 
+                this.updateAnyFormFieldINState(e,'login_session','error_timeStart_select','no',vaildSubmitFields(login_session,'error_timeStart_select'));  
+            break;
+
+            case "timeEnd_select":
+                    if(!e.target.value) 
+                        this.updateAnyFormFieldINState(e,'login_session','error_timeEnd_select','اسم السنتر مطلوب', false);
+                    else 
+                    this.updateAnyFormFieldINState(e,'login_session','error_timeEnd_select','no',vaildSubmitFields(login_session,'error_timeEnd_select'));  
+                break;
+          
+            default:
+                break;
+        }
+    }
+
+    /* Input :: event   || In Charge of updating the states in "login_assistant" */
+    /*  controlled Component*/
+    /* Place For calling the function :: handleWhichForm case "login_assistant*/
+    /* This Function in charge of update "assistant form" in states and handle the errors shown in the form too*/
 
     updateAssistantForm = (e) => {
         const {login_assistant} = this.state; 
@@ -179,6 +255,11 @@ export default withStyles(styles)(class Form extends Component {
             }
     } 
 
+
+    /* Input :: event   || In Charge of updating the states in "login_student" */
+    /*  controlled Component*/
+    /* Place For calling the function :: handleWhichForm case "login_student*/
+    /* This Function in charge of update "student form" in states and handle the errors shown in the form too*/
 
     updateStudentForm = (e) => {
         const {login_student} = this.state; 
@@ -227,7 +308,21 @@ export default withStyles(styles)(class Form extends Component {
                         else 
                         this.updateAnyFormFieldINState(e,'login_student','error_student_address','no',vaildSubmitFields(login_student,'error_student_address'));  
                     break;
-                
+
+
+                case "center_select_student":
+                        if(!e.target.value) 
+                            this.updateAnyFormFieldINState(e,'login_student','error_center_select','اسم السنتر مطلوب', false);
+                        else 
+                            this.updateAnyFormFieldINState(e,'login_student','error_center_select_student','no',vaildSubmitFields(login_student,'error_center_select_student'));  
+                    break;
+
+                case "session_select_student":
+                        if(!e.target.value)
+                            this.updateAnyFormFieldINState(e,'login_student','error_session_select_student','اسم السنتر مطلوب', false);
+                        else 
+                            this.updateAnyFormFieldINState(e,'login_student','error_session_select_student','no',vaildSubmitFields(login_student,'error_session_select_student'));  
+                    break;
 
                 default:
                     break;
@@ -237,7 +332,7 @@ export default withStyles(styles)(class Form extends Component {
 
     
     /* Input :: event  || Which Props Depend :: None */
-    /* Place For calling the function :: handleWhichForm (e) */
+    /* Place For calling the function :: handleWhichForm case "login" */
     /* Depend on this.State (Object of "form Name coming from Props" and it's properties) */
     /* This Function handle client-server-errors and update every state for all inputs of the field when changed  */
     
@@ -264,11 +359,22 @@ export default withStyles(styles)(class Form extends Component {
         }
     }
     
+    
+    /* Input :: event , login_ : Object Name in states , prop : property in that object for update , value : value of the property , boolvalue : value of submitSuccess value */
+    /* Place For Calling the function :: In Update Forms above  */
+    /*  This function is just for updating states in any object inside this.states in more simple way and make sure that all other property as thery are while change the specific property needed */
+
+    updateAnyFormFieldINState = (e,login_,prop,value,boolvalue) => {
+        this.setState({
+            [login_] : {...this.state[login_],[prop] : value ,'submitSucces' : boolvalue ,[e.target.name] : e.target.value}
+        })
+    }
+
     /* Input :: event  || Which Props Depend :: All */
     /* Place For calling the function :: render () */
-    /* Depend on States  */
+    /* Depend on States and Props  */
     /* Need some refactor ES6*/
-    /* This Function iterate over the all inputs "coming from props" and render it by order  */
+    /* This Function iterate over the all inputs "coming from props" and render it by order and handle the sessions shown when specific center is chosen  */
 
     renderTheComingForm = (e)=>{
         const inputsToShown = []
@@ -279,8 +385,16 @@ export default withStyles(styles)(class Form extends Component {
             dropDown_field_timeStart,
             dropDown_field_timeEnd,
             dropDown_field_session,
+            dropDown_field_center_student,
             classes
         } = this.props;
+        const {
+            login_session : {
+                center_select,
+                day_select,
+                timeStart_select,
+                timeEnd_select},
+            login_student : {center_select_student,session_select_student}} = this.state;
         
         for (let key in this.props) {
             if(`${key}`.includes('input_field'))
@@ -301,93 +415,32 @@ export default withStyles(styles)(class Form extends Component {
 
             if(`${key}`.includes('dropDown_field'))
             {
-                if (key === 'dropDown_field_center'){
-                        inputsToShown.push(
-                            <FormControl  key = {key} className={classes.FormControl}>
-                                 <InputLabel className={classes.Label} htmlFor={dropDown_field_center.selectFor}>{dropDown_field_center.selectName}</InputLabel>
-                                 <Select
-                                 className ={classes.Select}
-                                 inputProps={{
-                                         name: dropDown_field_center.selectFor,
-                                         id: dropDown_field_center.selectFor,
-                                     }}
-                                 > 
-                                 {dropDown_field_center.selectArray.map((item,index)=>
-                                 <MenuItem className={classes.Menu} key={item} value = {item}> {item} </MenuItem>
-                                 )}
-                                 </Select>
-                             </FormControl>   
-                     )
-                }
+                if (key === 'dropDown_field_center')
+                    inputsToShown.push(renderDropDown(key,classes,dropDown_field_center,this.handleChange,center_select))
 
-                else if(key === 'dropDown_field_day'){
-                            inputsToShown.push(
-                                <FormControl  key = {key} className={classes.FormControl}>
-                                     <InputLabel className={classes.Label} htmlFor={dropDown_field_day.selectFor}>{dropDown_field_day.selectName}</InputLabel>
-                                     <Select
-                                     inputProps={{
-                                             name: dropDown_field_day.selectFor,
-                                             id: dropDown_field_day.selectFor,
-                                         }}
-                                     > 
-                                     {dropDown_field_day.selectArray.map((item,index)=>
-                                     <MenuItem className={classes.Menu}  key={item} value = {item}> {item} </MenuItem>
-                                     )}
-                                     </Select>
-                                </FormControl>)   
-                }
-                else if(key === 'dropDown_field_timeStart'){
-                            inputsToShown.push(
-                                <FormControl  key = {key} className={classes.FormControl}>
-                                     <InputLabel className={classes.Label} htmlFor={dropDown_field_timeStart.selectFor}>{dropDown_field_timeStart.selectName}</InputLabel>
-                                     <Select
-                                     inputProps={{
-                                             name: dropDown_field_timeStart.selectFor,
-                                             id: dropDown_field_timeStart.selectFor,
-                                         }}
-                                     > 
-                                     {dropDown_field_timeStart.selectArray.map((item,index)=>
-                                     <MenuItem className={classes.Menu}  key={item} value = {item}> {item} </MenuItem>
-                                     )}
-                                     </Select>
-                                </FormControl>)   
-                }
-                else if (key === 'dropDown_field_timeEnd') {
-                            inputsToShown.push(
-                                <FormControl  key = {key}className={classes.FormControl}>
-                                     <InputLabel className={classes.Label} htmlFor={dropDown_field_timeEnd.selectFor}>{dropDown_field_timeEnd.selectName}</InputLabel>
-                                     <Select className = {classes.cow}
-                                     inputProps={{
-                                             name: dropDown_field_timeEnd.selectFor,
-                                             id: dropDown_field_timeEnd.selectFor,
-                                         }}
-                                     > 
-                                     {dropDown_field_timeEnd.selectArray.map((item,index)=>
-                                     <MenuItem className={classes.Menu}  key={item} value = {item}> {item} </MenuItem>
-                                     )}
-                                     </Select>
-                                </FormControl>)   
-                }
-                else {
+                else if(key === 'dropDown_field_day') 
+                    inputsToShown.push(renderDropDown(key,classes,dropDown_field_day,this.handleChange,day_select))
 
-                    inputsToShown.push(
-                        <FormControl  key = {key}className={classes.FormControl}>
-                             <InputLabel className={classes.Label} htmlFor={dropDown_field_session.selectFor}>{dropDown_field_session.selectName}</InputLabel>
-                             <Select className = {classes.cow}
-                             inputProps={{
-                                     name: dropDown_field_session.selectFor,
-                                     id: dropDown_field_session.selectFor,
-                                 }}
-                             > 
-                             {dropDown_field_session.selectArray.map((item,index)=>
-                             <MenuItem className={classes.Menu}  key={item} value = {item}> {item} </MenuItem>
-                             )}
-                             </Select>
-                        </FormControl>)   
-                }
-            }
-            
+                else if(key === 'dropDown_field_timeStart')
+                        inputsToShown.push(renderDropDown(key,classes,dropDown_field_timeStart,this.handleChange,timeStart_select))
+                
+                else if (key === 'dropDown_field_timeEnd') 
+                    inputsToShown.push(renderDropDown(key,classes,dropDown_field_timeEnd,this.handleChange,timeEnd_select))
+                 
+                else if (key === 'dropDown_field_center_student') 
+                    inputsToShown.push(renderDropDown(key,classes,dropDown_field_center_student,this.handleChange,center_select_student))
         }
+    }
+
+        if(center_select_student) {
+            const dropDown_field_session_student = {
+                selectFor : 'session_select_student',
+                selectName : 'اختار المجموعة',
+            }
+            inputsToShown.push(renderDropDown('session_select',classes,dropDown_field_session_student,this.handleChange,session_select_student,bringTheSessionsOFSpecficCenter(this.state,center_select_student)))
+
+        }
+
             return inputsToShown
     }
     
@@ -397,9 +450,9 @@ export default withStyles(styles)(class Form extends Component {
     /* This Function handle Will check if Form Vaild will redirect to Profile Page  */
 
     handleSubmit= (e) => {
-        e.preventDefault();
         const {form} = this.props ; 
-        const {login,login_assistant,login_center,login_student} = this.state;
+        const {login,login_assistant,login_center,login_student,login_session} = this.state;
+        e.preventDefault();
         switch (form) {
             case 'login':
                     if(login.submitSucces) {
@@ -418,22 +471,30 @@ export default withStyles(styles)(class Form extends Component {
             break;
             case 'login_assistant': 
                 if(login_assistant.submitSucces)
-                    succesRegister('additions',`بنجاح ${login_assistant.assistant_firstName} تم تسجيل`)
+
+                    succesRegister('additions',(` تم تسجيل ${login_assistant.assistant_firstName} بنجاح`))
                 else 
-                    console.log('sad')
+                    failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
             case 'login_center': 
                 if(login_center.submitSucces)
                     succesRegister('/additions',` تم تسجيل ${login_center.center_name} بنجاح`)
                 else 
-                    console.log('sad')
+                    failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
 
             case 'login_student': 
             if(login_student.submitSucces)
                 succesRegister('/additions',` تم تسجيل ${login_student.student_fullName} بنجاح`)
             else 
-                console.log('sad')
+                failedRegister('من فضلك تأكد من ملئ جميع البيانات')
+            break;
+
+            case 'login_session': 
+            if(login_session.submitSucces)
+                succesRegister('/additions', `${login_session.timeStart_select} تم تسجيل مجموعة ` )
+            else 
+                failedRegister('من فضلك تأكد من ملئ جميع البيانات')
             break;
         
             default:
