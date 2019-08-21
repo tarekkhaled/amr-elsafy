@@ -1,6 +1,6 @@
 import React from 'react' ;
 import {createInputField,createDropDownField} from './form_helpers';
-import Form from './form';
+import Form from '../components/form';
 
 
 function addAssistantForm () {

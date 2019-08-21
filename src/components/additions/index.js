@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import './css/additions.css';
+import '../../resources/css/additions.css';
 import {
     boss_nav,
     assistant_nav,
@@ -8,7 +8,7 @@ import {
     addCenterForm,
     addSessionForm,
     addStudentForm
-} from './additions_helpers';
+} from '../../component_helpers/additions_helpers';
 
 
 class Additions extends Component {

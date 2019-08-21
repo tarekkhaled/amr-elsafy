@@ -3,7 +3,7 @@
     display: inline-block;
     text-align: center;
     padding: 50px;
-    font-size: 17px;
+    font-size: 19px;
     background-color: #141423;
     font-family: 'Tajawal', sans-serif;
     margin-top: 35px;
@@ -12,10 +12,11 @@
 }
 
 .Form-field {
-    display: grid;
-    grid-template-areas: 'one two';
-    grid-column-gap: 15px;
+    display: flex;
     margin-bottom: 15px;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
 
 }
 
@@ -30,16 +31,17 @@
 
 .Form-input {
     width : 275px;
-
+    padding-left: 5px;
 }
 
 .Form-input::placeholder {
     padding-right: 10px;
-    text-align: right;
 }
 
 .Form-label {
     margin-left:10px;
+    margin-right: 10px;
+
 
 }
 
@@ -62,9 +64,12 @@
     border : 1px solid red;
     margin-top:5px;
     color : red;
-    font-size: 16px;
+    font-size: 17px;
     font-style: italic;
     width : 275px;
+    min-height: 32px;
+    padding: 3px;
+
 }
 
 

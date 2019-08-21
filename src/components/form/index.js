@@ -1,8 +1,8 @@
 import React , {Component} from 'react';
 import {withStyles} from '@material-ui/styles';
-import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields,renderDropDown}from './form_helpers'
+import {checkFromFireBase,failedRegister,succesRegister,vaildSubmitFields,renderDropDown}from '../../component_helpers/form_helpers'
 import validator from 'validator' ;
-import './css/form.css';
+import '../../resources/css/form.css';
 
 
 function fakeFunction () {
@@ -38,6 +38,8 @@ const styles = theme => ({
 
     }
 })
+
+
 
 export default withStyles(styles)(class Form extends Component {
     state = { 
