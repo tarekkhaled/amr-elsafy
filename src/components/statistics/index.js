@@ -5,7 +5,9 @@ import '../../resources/css/statistics.css';
 class Login extends Component {
     render () {
         return (
-            <h1>additions</h1>
+           <div>
+               h1
+           </div>
         )
     }
 }

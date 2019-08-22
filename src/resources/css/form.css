@@ -21,12 +21,22 @@
 }
 
 .Form-title {
-    margin-bottom: 25px;
     position: relative;
-    padding-bottom: 10px;
-    border-bottom: 1.5px solid #231c2c
+    padding : 0px 50px;
+    border-bottom: 2px solid #231c2c;
+    font-size: 22px;
 }
 
+
+.Additions-Form {
+    background-color: #13131f;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
 
 
 .Form-input {
@@ -75,10 +85,6 @@
 
 
 @media screen and (max-width: 520px) {
-    .Form-field {
-      display: flex;
-      flex-direction: column-reverse;  
-    }
     .Form-submit {
         margin-top: 20px;
     }

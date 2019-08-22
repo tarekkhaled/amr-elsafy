@@ -33,7 +33,7 @@ export default function NavLogic({whoEnter}) {
                         />
     
                         <NavCard
-                            buttonName = "AddGroup"
+                            buttonName = "Add Group"
                             destnation = "/addGroupForm"
                             icon = "fa-users"
                             

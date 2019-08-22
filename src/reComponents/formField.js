@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
 
-export default function FormField({formID,formInfo:{element,vaildation,vaild,validationMessage,config,value,label},onChange}) {
+export default function FormField({formID,formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label},onChange}) {
 
     const showError = () => {
         let errorMessage = <Fragment>
             {
-                (vaildation && vaild ) ?  null : <div className={`${validationMessage? 'Form-error' : ''}`}>{validationMessage}</div>
+                (vaildation && vaild ) ?  null : <div className={`${vaildationMessage? 'Form-error' : ''}`}>{vaildationMessage}</div>
             }
         </Fragment>
         return errorMessage;

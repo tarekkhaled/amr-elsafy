@@ -33,13 +33,13 @@ export const allFormIsVaild = (formData,dataToSubmit) => {
 }
 
 
-export const succesRegister = (message) => {
+export const succesRegister = (message,buttonName) => {
 
     swal({
         title: "Good job!",
         text: message ,
         icon: "success",
-        button: false,
+        button: buttonName ? buttonName : false,
       });
     
 }

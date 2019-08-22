@@ -1,5 +1,4 @@
 import React , {Component} from 'react';
-import '../../resources/css/login.css';
 import '../../resources/css/form.css';
 import FormField from '../../reComponents/formField';
 import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../component_helpers/helpers';
@@ -9,7 +8,7 @@ let messageTimeout ;
 class Login extends Component {
 
     state = {
-        /* khaled firebase will be removed*/
+        /* khaled firebase will be removed */
         firebase : [
             {
                 id : '1',
@@ -57,17 +56,16 @@ class Login extends Component {
                     required : true,
                 },
                 vaild : false, 
-                validationMessage : ''
+                vaildationMessage : ''
             }
         }
     }
 
     componentWillUnmount() {
-        clearInterval(messageTimeout)
+        clearTimeout(messageTimeout)
     }
 
     updateLoginForm = ({event : {target},formID}) => {
-        console.log(target)
         const {formData} = this.state;
         // make the new form object take the same alll properties in form Data above
         const newFormData = {...formData}; 
@@ -76,10 +74,12 @@ class Login extends Component {
         // change value by the value entered in the input
         newElement.value = target.value;
         // change vaildation message and vaild flag 
-        newElement.vaild = validate(newElement).vaild
-        newElement.validationMessage = validate(newElement).message
+        const {vaild,message} = validate(newElement);
+        newElement.vaild = vaild
+        newElement.validationMessage = message
 
         newFormData[formID] = newElement ;
+        console.log(newFormData)
 
         this.setState({
             formData : newFormData,
@@ -93,8 +93,8 @@ class Login extends Component {
         e.preventDefault();
         const {formData,firebase} = this.state;
         const dataToSubmit = {};
-        const submitForm = allFormIsVaild(formData,dataToSubmit) ;
-        if(submitForm) {
+        const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit) ;
+        if(submitFormSuccessfuly) {
             const {email,password} = dataToSubmit;
             /* khaled here you will make the check from firebase if the data is true the data to firebase you have dataToSubmit all information */
             const firebaseStoredUser = firebase.find((user)=> {
@@ -130,7 +130,7 @@ class Login extends Component {
     render () {
         const {formData : {email,password},formError} = this.state;
         return (
-            <div className="Login">
+            <div className="Additions-Form">
                 <form className = "Form" onSubmit={this.submitForm}>
                     <FormField 
                         formID = 'email'
@@ -145,7 +145,7 @@ class Login extends Component {
                     />
                     <button className="Form-submit" onClick={this.submitForm}>Sign in</button>
                 </form>
-                {formError ? failedRegister('please check your information again !') : null}
+                {formError ? failedRegister('Please check your information again !') : null}
             </div>
         )
     }
