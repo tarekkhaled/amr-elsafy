@@ -3,10 +3,7 @@ import {Route,Switch} from 'react-router-dom';
 import Layout from './hoComponents/layout';
 import Login from './components/login';
 import Additions from './components/additions';
-import AddStudent from './components/forms/studentForm';
-import AddAssistant from './components/forms/assistantForm';
-import AddCenter from './components/forms/centerForm';
-import AddGroup from './components/forms/groupForm';
+import {AddAssistant,AddStudent,AddCenter,AddGroup} from './components/forms';
 import Statistics from './components/statistics';
 import './resources/css/App.css';
 
