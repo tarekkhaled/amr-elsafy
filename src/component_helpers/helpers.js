@@ -1,17 +1,50 @@
-export const validate = ({value,vaildation : {required,email}})=> {
-    
-    let noErrors = [true,''];
+import swal from 'sweetalert';
 
-    if(email) {
-        const vaild = /\S+@\S+\.\S+/.test(value);
-        const message = `${!vaild ? 'This is not a vaild email' : ''}`;
-        noErrors = !vaild ? [vaild,message] : noErrors; 
+// vaildation form email and any other input
+export const validate = ({vaildation:{required,email},value}) => {
+    let errorOjbect = {
+        message : '',
+        vaild : true
     }
-    if(required) {
-        const vaild = value.trim() !== ''; // true means that he write something
-        const message = ` ${!vaild ? 'this field is required' : ''}`;
-        noErrors = !vaild ? [vaild,message] : noErrors ; 
+
+    if (email) {
+        errorOjbect = (/\S+@\S+\.\S+/.test(value)) ? errorOjbect : {message : 'Not vaild email', vaild : false }
     }
-    return noErrors;
+
+    if (required) {
+        errorOjbect = value ? errorOjbect : {message : 'Not vaild email', vaild : false }
+    }
+
+    return errorOjbect ;
 }
 
+
+
+
+export const allFormIsVaild = (formData,dataToSubmit) => {
+    let formVaild = true; 
+    for (let key in formData) {
+        // you have 2 key one form email and one for password
+        dataToSubmit[key] = formData[key].value;
+        formVaild = formData[key].vaild && formVaild /* the second check to avoid change formVaild to true if the last input is true and the ones before it is false don't */
+    }
+    return formVaild
+
+}
+
+
+export const succesRegister = (message) => {
+
+    swal({
+        title: "Good job!",
+        text: message ,
+        icon: "success",
+        button: false,
+      });
+    
+}
+
+
+export const failedRegister = (message) => {
+    swal(`${message}`)
+}
