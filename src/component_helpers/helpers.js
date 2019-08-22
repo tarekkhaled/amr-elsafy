@@ -12,7 +12,7 @@ export const validate = ({vaildation:{required,email},value}) => {
     }
 
     if (required) {
-        errorOjbect = value ? errorOjbect : {message : 'Not vaild email', vaild : false }
+        errorOjbect = value ? errorOjbect : {message : 'This field is required', vaild : false }
     }
 
     return errorOjbect ;

@@ -7,7 +7,7 @@ let messageTimeout ;
 export default class AddAssistant extends Component {
     state = {
         formError : false,
-        formSucces  : '',
+        formSuccess  : '',
         formData : {
             email : {
                 element : 'input',
@@ -131,8 +131,8 @@ export default class AddAssistant extends Component {
         const newFormdata = {...this.state.formData};
         for (let key in newFormdata) {
             newFormdata[key].value = '';
-            newFormdata[key].valid = false;
-            newFormdata[key].validationMessage = ''
+            newFormdata[key].vaild = false;
+            newFormdata[key].vaildationMessage = ''
         }
 
         this.setState({
