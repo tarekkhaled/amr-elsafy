@@ -1,0 +1,25 @@
+/** ________________Additions__________--*/
+@media screen and (max-width : 500px) {
+    .Additions {
+        padding: 10px 10px;
+        display: grid;
+        grid-template-areas:  '1 2';
+        grid-gap: 10px
+    }
+
+    .Additions-card-box {
+        margin-top: 500px;
+        padding : 10px 15px;
+        margin : 0px 0px;
+    }
+
+    .Additions-link {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (min-width : 500px ) and (max-width : 900px) {
+    .Additions-link {
+        margin-top: 90px;
+    }
+}
