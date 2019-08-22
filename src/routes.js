@@ -21,6 +21,7 @@ function Routes() {
                 <Route exact path = '/addAssistantForm' component = {AddAssistant}></Route>
                 <Route exact path = '/addCenterForm' component = {AddCenter}></Route>
                 <Route exact path = '/addGroupForm' component = {AddGroup}></Route>
+                <Route exact path = '/statistics' component = {Statistics}></Route>
 
             </Switch>
         </Layout>               
