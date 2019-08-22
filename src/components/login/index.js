@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import '../../resources/css/login.css';
+import '../../resources/css/form.css';
 import FormField from '../../reComponents/formField';
 import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../component_helpers/helpers';
 
@@ -8,6 +9,7 @@ let messageTimeout ;
 class Login extends Component {
 
     state = {
+        /* khaled firebase will be removed*/
         firebase : [
             {
                 id : '1',

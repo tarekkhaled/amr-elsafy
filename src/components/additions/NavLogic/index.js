@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import '../../../resources/css/additions.css';
-import NavButton from '../../../reComponents/navButton';
+import NavCard from '../../../reComponents/navCard';
 
 
 
@@ -13,26 +13,26 @@ export default function NavLogic({whoEnter}) {
             case 'boss':
                 navTemplate = (
                     <Fragment>
-                        <NavButton
+                        <NavCard
                             buttonName = "Add Assistant"
                             destnation = "/addAssistantForm"
                             icon = "fa-user"
 
                         />
     
-                        <NavButton
+                        <NavCard
                             buttonName = "Add Student"
                             destnation = "/addStudentForm"
                             icon = "fa-user"
                         />
     
-                        <NavButton
+                        <NavCard
                             buttonName = "Add Center"
                             destnation = "/addCenterForm"
                             icon = "fa-university"
                         />
     
-                        <NavButton
+                        <NavCard
                             buttonName = "AddGroup"
                             destnation = "/addGroupForm"
                             icon = "fa-users"
@@ -47,19 +47,19 @@ export default function NavLogic({whoEnter}) {
     
                     navTemplate = (
                         <Fragment>
-                            <NavButton
+                            <NavCard
                                 buttonName = "Add student"
                                 destnation = "/addStudentForm"
                                 icon = "fa-user"
                             />
     
-                            <NavButton
+                            <NavCard
                                 buttonName = "Add Center"
                                 destnation = "/addCenterForm"
                                 icon = "fa-university"
                             />
     
-                            <NavButton
+                            <NavCard
                                 buttonName = "AddGroup"
                                 destnation = "/addGroupForm"
                                 icon = "fa-users"
