@@ -1,4 +1,7 @@
+import React from 'react';
 import swal from 'sweetalert';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 // vaildation form email and any other input
 export const validate = ({vaildation:{required,email},value}) => {
@@ -47,4 +50,44 @@ export const succesRegister = (message,buttonName) => {
 
 export const failedRegister = (message) => {
     swal(`${message}`)
+}
+
+
+
+export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender) => {
+    if(isArrayOfObjects)
+    {
+        return  arrayOfChoices.map(({propetyToRender},index)=>
+            <MenuItem 
+                key={index} 
+                value = {propetyToRender}
+                style = {{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    fontFamily : 'Tajawal , sans-serif',
+                    fontWeight : '600',
+
+                }}
+            >
+                {propetyToRender} 
+            </MenuItem>
+        )
+
+    } else {
+        return  arrayOfChoices.map((element,index)=>
+            <MenuItem 
+                key={index} 
+                value = {element}
+                style = {{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    fontFamily : 'Tajawal , sans-serif',
+                    fontWeight : '600',
+
+                }}
+            >
+                {element} 
+            </MenuItem>
+        )
+    }
 }
