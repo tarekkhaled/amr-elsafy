@@ -1,14 +1,26 @@
 import React , {Component} from 'react';
-import Form from '../form/';
-import FormField from '../../reComponents/formField';
-import {createInputField} from '../../component_helpers/form_helpers';
 import '../../resources/css/login.css';
+import FormField from '../../reComponents/formField';
+import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../component_helpers/helpers';
 
-import {validate} from '../../component_helpers/helpers';
+let messageTimeout ;
 
 class Login extends Component {
 
     state = {
+        firebase : [
+            {
+                id : '1',
+                mail: 'tarekt820@gmail.com',
+                password : '12345',
+                firstName : 'tarek'
+            },
+            {
+                id : '2',
+                mail: 'leoMessi@gmail.com',
+                password : '12345'
+            }
+        ],
         formError : false, // this will be the last step before send data to server after submit
         formSuccess : '',
         formData : {
@@ -48,35 +60,73 @@ class Login extends Component {
         }
     }
 
+    componentWillUnmount() {
+        clearInterval(messageTimeout)
+    }
+
     updateLoginForm = ({event : {target},formID}) => {
-        console.log(formID)
+        console.log(target)
         const {formData} = this.state;
-        const newFormData = {...formData}; // take all the properties on the object and speard it here
+        // make the new form object take the same alll properties in form Data above
+        const newFormData = {...formData}; 
+        // spread all the properties inside the specific input from formData by formID
         const newElement = {...newFormData[formID]} // the one will change and edited 
-
+        // change value by the value entered in the input
         newElement.value = target.value;
-
-        let vaildData = validate(newElement);
-
-        newElement.vaild = vaildData[0];
-        newElement.validationMessage = vaildData[1]
+        // change vaildation message and vaild flag 
+        newElement.vaild = validate(newElement).vaild
+        newElement.validationMessage = validate(newElement).message
 
         newFormData[formID] = newElement ;
 
         this.setState({
-            formData : newFormData
+            formData : newFormData,
+            formError : false // just to make him free to update again after failed submttion
         })
     }
 
 
     // need handle sumbit function 
-
-    // need reset form function
+    submitForm = (e) => {
+        e.preventDefault();
+        const {formData,firebase} = this.state;
+        const dataToSubmit = {};
+        const submitForm = allFormIsVaild(formData,dataToSubmit) ;
+        if(submitForm) {
+            const {email,password} = dataToSubmit;
+            /* khaled here you will make the check from firebase if the data is true the data to firebase you have dataToSubmit all information */
+            const firebaseStoredUser = firebase.find((user)=> {
+                return (user.mail === email && user.password === password) || null
+            })
+            
+            if(firebaseStoredUser) {
+                // here will be redirect in peace to your profile
+                this.setState({
+                    formSuccess : `happy to have you back  ${firebaseStoredUser.firstName} 😊` 
+                },()=>{
+                    succesRegister(this.state.formSuccess)
+                })
+                messageTimeout = setTimeout(() => {
+                    window.location.assign('./profile')
+                }, 1500);
+            }
+            else { 
+                this.setState({
+                    formError : true // check from server side 
+                })
+            }
+            
+        } else {
+            this.setState({
+                formError : true // check from client side
+            })
+        }  
+    }
 
     // need to implement the vaildate function again
 
     render () {
-        const {formData : {email,password}} = this.state;
+        const {formData : {email,password},formError} = this.state;
         return (
             <div className="Login">
                 <form className = "Form" onSubmit={this.submitForm}>
@@ -91,10 +141,9 @@ class Login extends Component {
                         onChange = {(element)=>this.updateLoginForm(element)}
 
                     />
-                    <button className="Form-submit ">Sign in</button>
+                    <button className="Form-submit" onClick={this.submitForm}>Sign in</button>
                 </form>
-
-              
+                {formError ? failedRegister('please check your information again !') : null}
             </div>
         )
     }
