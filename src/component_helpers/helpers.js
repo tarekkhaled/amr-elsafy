@@ -30,8 +30,12 @@ export const allFormIsVaild = (formData,dataToSubmit) => {
         // you have 2 key one form email and one for password
         dataToSubmit[key] = formData[key].value;
         formVaild = formData[key].vaild && formVaild /* the second check to avoid change formVaild to true if the last input is true and the ones before it is false don't */
+        
+        if((formData[key]).hasOwnProperty('centerID')) {
+            dataToSubmit['centerID'] = formData[key]['centerID'];
+        }
     }
-    return formVaild
+    return formVaild;
 
 }
 
@@ -93,3 +97,12 @@ export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,
         )
     }
 }
+
+
+export const  getCenterID = (keySearch,value,centersCollection,propertyID) => {
+    const object = centersCollection.find((object)=>{
+       return object[keySearch] === value
+    })
+    return object[propertyID];
+}
+

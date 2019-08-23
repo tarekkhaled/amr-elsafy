@@ -2,7 +2,7 @@ import React, { Component , Fragment } from 'react';
 import swal from 'sweetalert';
 import FormField from '../../../reComponents/formField';
 import '../../../resources/css/additions.css';
-import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../../component_helpers/helpers';
+import {validate,allFormIsVaild,succesRegister,failedRegister,getCenterID} from '../../../component_helpers/helpers';
 let messageTimeout ;
 
 /* khaled this will be removed */
@@ -20,6 +20,7 @@ const centersCollection = [
         centerID : '3'
     }
 ]
+
 
 const timeStartCollection = [
     {
@@ -49,8 +50,6 @@ const timeEndCollection = [
 
 export default class AddGroup extends Component {
 
-
-    
     state = {
 
         formError : false,
@@ -68,6 +67,7 @@ export default class AddGroup extends Component {
                     required : true,
                 },
                 vaild : false,
+                centerID : '',
                 vaildationMessage : '',
                 arrayOfChoices : [],// firebase
                 propertyToRender : 'centerName', //  firebase
@@ -157,6 +157,9 @@ export default class AddGroup extends Component {
         const newFormData = {...formData};
         const newElements = newFormData[formID];
         newElements.value = target.value ;
+        if(newElements.hasOwnProperty('centerID')) {
+            newElements['centerID'] = getCenterID('centerName',target.value,centersCollection,'centerID') ;
+        }
         const {vaild,message} = validate(newElements);
         newElements.vaild = vaild ;
         newElements.vaildationMessage = message;
@@ -176,6 +179,7 @@ export default class AddGroup extends Component {
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
 
         if(submitFormSuccessfuly) {
+            console.log(dataToSubmit)
             this.setState({
                 formSucces : `Add Group "${dataToSubmit.centersChoice} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
             }, () => {
