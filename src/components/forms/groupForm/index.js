@@ -8,7 +8,7 @@ let messageTimeout ;
 /* khaled this will be removed */
 const centersCollection = [
     {
-        centerName : 'ام خديجة',
+        centerName : 'ام ابراهيم',
         centerID : '1'
     },
     {
@@ -48,6 +48,8 @@ const timeEndCollection = [
 ]
 
 export default class AddGroup extends Component {
+
+
     
     state = {
 
@@ -67,7 +69,7 @@ export default class AddGroup extends Component {
                 },
                 vaild : false,
                 vaildationMessage : '',
-                arrayOfChoices : centersCollection,// firebase
+                arrayOfChoices : [],// firebase
                 propertyToRender : 'centerName', //  firebase
                 menuLanguage : 'ar',
                 isArrayOfObjects : true
@@ -88,6 +90,8 @@ export default class AddGroup extends Component {
                 arrayOfChoices : days,
                 menuLanguage : 'ar',
                 isArrayOfObjects : false
+
+              
             },
             timeStartChoice : {
                 element : 'dropdown',
@@ -104,7 +108,7 @@ export default class AddGroup extends Component {
                 vaildationMessage : '',
                 arrayOfChoices : timeStartCollection,
                 propertyToRender : 'time',
-                menuLanguage : 'ar',
+                menuLanguage : 'a1r',
                 isArrayOfObjects : true,
 
             },
@@ -129,6 +133,18 @@ export default class AddGroup extends Component {
 
             },
         }
+    }
+
+    componentWillMount () {
+
+        const {formData} = this.state;
+        const newFormData = {...formData} ;
+        const newCentersChiocesObject = newFormData['centersChoice'];
+        newCentersChiocesObject.arrayOfChoices = centersCollection;
+        newFormData['centersChoice'] = newCentersChiocesObject;
+        this.setState({
+            formData : newFormData 
+        })
     }
 
     componentWillUnmount() {

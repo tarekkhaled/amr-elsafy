@@ -4,6 +4,8 @@ import FormField from '../../../reComponents/formField';
 import '../../../resources/css/additions.css';
 import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../../component_helpers/helpers';
 let messageTimeout ;
+
+
 export default class AddAssistant extends Component {
     state = {
         formError : false,
@@ -106,6 +108,7 @@ export default class AddAssistant extends Component {
         const dataToSubmit = {} ;
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
         if(submitFormSuccessfuly) {
+
             this.setState({
                 formSucces : `Add assistant ${dataToSubmit.firstName} successfuly 😊`
             }, () => {

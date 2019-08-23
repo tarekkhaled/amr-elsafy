@@ -40,7 +40,7 @@ class Login extends Component {
                     email : true 
                 },
                 vaild : false, // the flag for shown message below or not
-                validationMessage : '' // this will be the message to show if error shown up
+                vaildationMessage : '' // this will be the message to show if error shown up
             },
             password : {
                 element : 'input',
@@ -76,7 +76,7 @@ class Login extends Component {
         // change vaildation message and vaild flag 
         const {vaild,message} = validate(newElement);
         newElement.vaild = vaild
-        newElement.validationMessage = message
+        newElement.vaildationMessage = message
 
         newFormData[formID] = newElement ;
         console.log(newFormData)
