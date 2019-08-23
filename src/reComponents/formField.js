@@ -7,7 +7,7 @@ import {renderDropDowns} from '../component_helpers/helpers';
 
 export default function FormField(
     {   formID,
-        formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label,arrayOfChoices,isArrayOfObjects,propertyToRender},onChange
+        formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label,arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage},onChange
     }) 
 
     {
@@ -23,7 +23,6 @@ export default function FormField(
 
     
     const showField = () => {
-        console.log(propertyToRender)
         let formTemplate = null;
         switch (element) {
             case 'input':
@@ -45,6 +44,7 @@ export default function FormField(
                     <FormControl  
                         style={{
                             display : 'flex',
+                            minWidth : '400px',
                             marginBottom : '10px'
                         }}>
                         <InputLabel 
@@ -69,7 +69,7 @@ export default function FormField(
                                         id: config.id
                                     }}
                         >                    
-                             { renderDropDowns(arrayOfChoices,isArrayOfObjects,propertyToRender)}
+                             { renderDropDowns(arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage)}
                         </Select>
                     </FormControl>
                 )

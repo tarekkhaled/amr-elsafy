@@ -54,22 +54,24 @@ export const failedRegister = (message) => {
 
 
 
-export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender) => {
+export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,menuLanguage) => {
+
+    // property to render -> time 
     if(isArrayOfObjects)
     {
-        return  arrayOfChoices.map(({propetyToRender},index)=>
+        return  arrayOfChoices.map((element,index)=>
             <MenuItem 
                 key={index} 
-                value = {propetyToRender}
+                value = {element[propetyToRender]}
                 style = {{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: `${menuLanguage === 'en' ? 'flex' : 'flex-end'}`,
                     fontFamily : 'Tajawal , sans-serif',
                     fontWeight : '600',
 
                 }}
             >
-                {propetyToRender} 
+                {element[propetyToRender]} 
             </MenuItem>
         )
 

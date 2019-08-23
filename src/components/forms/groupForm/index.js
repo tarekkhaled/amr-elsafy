@@ -23,18 +23,18 @@ const centersCollection = [
 
 const timeStartCollection = [
     {
-        time : '2:00 Am'
+        time : '1:00 Am'
     },
     {
         time : '5:00 Am'
     },
-    ,{
+    {
         time : '10:00 Am'
-    },
+    }
 ]
 
 
-const days = ['sunday' , 'monday' , 'tuesday' , 'wensday' ,'tarekday'] 
+const days = ['السبت' , 'الحد' , 'الاتنين' , 'التلات' ,'العبود'] 
 const timeEndCollection = [
     {
         time : '5:00 Am'
@@ -42,7 +42,7 @@ const timeEndCollection = [
     {
         time : '9:00 Am'
     },
-    ,{
+    {
         time : '12:00 Am'
     },
 ]
@@ -69,6 +69,7 @@ export default class AddGroup extends Component {
                 vaildationMessage : '',
                 arrayOfChoices : centersCollection,// firebase
                 propertyToRender : 'centerName', //  firebase
+                menuLanguage : 'ar',
                 isArrayOfObjects : true
             },
             dayChoice : {
@@ -85,6 +86,7 @@ export default class AddGroup extends Component {
                 vaild : false,
                 vaildationMessage : '',
                 arrayOfChoices : days,
+                menuLanguage : 'ar',
                 isArrayOfObjects : false
             },
             timeStartChoice : {
@@ -102,7 +104,8 @@ export default class AddGroup extends Component {
                 vaildationMessage : '',
                 arrayOfChoices : timeStartCollection,
                 propertyToRender : 'time',
-                isArrayOfObjects : true
+                menuLanguage : 'ar',
+                isArrayOfObjects : true,
 
             },
             timeEndChoice : {
@@ -120,7 +123,9 @@ export default class AddGroup extends Component {
                 vaildationMessage : '',
                 arrayOfChoices : timeEndCollection,
                 propertyToRender : 'time',
+                menuLanguage : 'ar',
                 isArrayOfObjects : true
+
 
             },
         }
@@ -153,9 +158,10 @@ export default class AddGroup extends Component {
         const {formData} = this.state;
         const dataToSubmit = {} ;
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
+
         if(submitFormSuccessfuly) {
             this.setState({
-                formSucces : `Add center "${dataToSubmit.centerName}" successfuly 😊`
+                formSucces : `Add Group "${dataToSubmit.centersChoice} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
             }, () => {
                 succesRegister(this.state.formSucces);
                 setTimeout(() => {
@@ -163,8 +169,6 @@ export default class AddGroup extends Component {
                     this.resetForm()
                 }, 2000);
             })
-
-            /*khaled here you have object with all fields */
 
         } else {
             this.setState({
