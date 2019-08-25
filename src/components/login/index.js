@@ -79,7 +79,6 @@ class Login extends Component {
         newElement.vaildationMessage = message
 
         newFormData[formID] = newElement ;
-        console.log(newFormData)
 
         this.setState({
             formData : newFormData,

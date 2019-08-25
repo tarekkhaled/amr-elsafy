@@ -4,6 +4,8 @@ import FormField from '../../../reComponents/formField';
 import '../../../resources/css/additions.css';
 import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../../component_helpers/helpers';
 let messageTimeout ;
+
+
 export default class AddCenter extends Component {
     state = {
         formError : false,
@@ -66,7 +68,7 @@ export default class AddCenter extends Component {
     
 
 
-    updateAssistantForm = ({event : {target},formID}) => {
+    updateCenterForm = ({event : {target},formID}) => {
         const {formData} = this.state;
         const newFormData = {...formData};
         const newElements = newFormData[formID];
@@ -136,17 +138,17 @@ export default class AddCenter extends Component {
                         <FormField
                             formID = "centerName"
                             formInfo = {centerName}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateCenterForm(element)}
                         />
                         <FormField
                             formID = "centerPhone"
                             formInfo = {centerPhone}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateCenterForm(element)}
                         />
                         <FormField
                             formID = "centerAddress"
                             formInfo = {centerAddress}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateCenterForm(element)}
                         />
                         <button className="Form-submit" onClick={this.submitForm}>submit</button>
                     </form>

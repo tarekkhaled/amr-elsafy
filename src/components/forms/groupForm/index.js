@@ -2,22 +2,21 @@ import React, { Component , Fragment } from 'react';
 import swal from 'sweetalert';
 import FormField from '../../../reComponents/formField';
 import '../../../resources/css/additions.css';
-import {validate,allFormIsVaild,succesRegister,failedRegister,getCenterID} from '../../../component_helpers/helpers';
+import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../../component_helpers/helpers';
 let messageTimeout ;
 
-/* khaled this will be removed */
 const centersCollection = [
     {
         centerName : 'ام ابراهيم',
-        centerID : '1'
+        centerID : 1
     },
     {
         centerName : 'ام نحمدو',
-        centerID : '2'
+        centerID : 2
     },
     {
         centerName : 'ام شربات',
-        centerID : '3'
+        centerID : 3
     }
 ]
 
@@ -55,7 +54,7 @@ export default class AddGroup extends Component {
         formError : false,
         formSuccess  : '',
         formData : {
-            centersChoice : {
+            centerID : {
                 element : 'dropdown',
                 label : 'Choose Center',
                 value : '',
@@ -70,7 +69,7 @@ export default class AddGroup extends Component {
                 centerID : '',
                 vaildationMessage : '',
                 arrayOfChoices : [],// firebase
-                propertyToRender : 'centerName', //  firebase
+                propertyToRender : ['centerName','centerID'], // this because if i want to show something and send another value to database
                 menuLanguage : 'ar',
                 isArrayOfObjects : true
             },
@@ -139,9 +138,9 @@ export default class AddGroup extends Component {
 
         const {formData} = this.state;
         const newFormData = {...formData} ;
-        const newCentersChiocesObject = newFormData['centersChoice'];
+        const newCentersChiocesObject = newFormData['centerID'];
         newCentersChiocesObject.arrayOfChoices = centersCollection;
-        newFormData['centersChoice'] = newCentersChiocesObject;
+        newFormData['centerID'] = newCentersChiocesObject;
         this.setState({
             formData : newFormData 
         })
@@ -152,14 +151,11 @@ export default class AddGroup extends Component {
     }
     
 
-    updateAssistantForm = ({event : {target},formID}) => {
+    updateGroupForm = ({event : {target},formID}) => {
         const {formData} = this.state;
         const newFormData = {...formData};
         const newElements = newFormData[formID];
         newElements.value = target.value ;
-        if(newElements.hasOwnProperty('centerID')) {
-            newElements['centerID'] = getCenterID('centerName',target.value,centersCollection,'centerID') ;
-        }
         const {vaild,message} = validate(newElements);
         newElements.vaild = vaild ;
         newElements.vaildationMessage = message;
@@ -168,7 +164,6 @@ export default class AddGroup extends Component {
             formData : newFormData,
             formError : false
         })
-
         
     }
 
@@ -181,7 +176,7 @@ export default class AddGroup extends Component {
         if(submitFormSuccessfuly) {
             console.log(dataToSubmit)
             this.setState({
-                formSucces : `Add Group "${dataToSubmit.centersChoice} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
+                formSucces : `Add Group "${dataToSubmit.centerID} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
             }, () => {
                 succesRegister(this.state.formSucces);
                 setTimeout(() => {
@@ -215,7 +210,7 @@ export default class AddGroup extends Component {
 
     }
     render() {
-        const {formData : {centersChoice,dayChoice,timeStartChoice,timeEndChoice},formError} = this.state;
+        const {formData : {centerID,dayChoice,timeStartChoice,timeEndChoice},formError} = this.state;
         return (
             <Fragment>
                 <div className="Additions-Form">
@@ -223,24 +218,24 @@ export default class AddGroup extends Component {
 
                     <form onSubmit = {this.submitForm} className = "Form">
                         <FormField
-                            formID = "centersChoice"
-                            formInfo = {centersChoice}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            formID = "centerID"
+                            formInfo = {centerID}
+                            onChange = {(element) => this.updateGroupForm(element)}
                         />
                         <FormField
                             formID = "dayChoice"
                             formInfo = {dayChoice}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateGroupForm(element)}
                         />
                         <FormField
                             formID = "timeStartChoice"
                             formInfo = {timeStartChoice}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateGroupForm(element)}
                         />
                         <FormField
                             formID = "timeEndChoice"
                             formInfo = {timeEndChoice}
-                            onChange = {(element) => this.updateAssistantForm(element)}
+                            onChange = {(element) => this.updateGroupForm(element)}
                         />
                         <button className="Form-submit" onClick={this.submitForm}>submit</button>
                     </form>
