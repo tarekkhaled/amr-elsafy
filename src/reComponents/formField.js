@@ -7,7 +7,7 @@ import {renderDropDowns} from '../component_helpers/helpers';
 
 export default function FormField(
     {   formID,
-        formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label,arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage},onChange
+        formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label,arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage,placeholderLanguage,multiPropertiesToRender},studentDropDown,onChange
     }) 
 
     {
@@ -30,6 +30,7 @@ export default function FormField(
                     <div className="Form-field">
                             <label className="Form-label" htmlFor={config.id}>{label}:</label>
                             <input 
+                                style= {placeholderLanguage && placeholderLanguage === 'ar' ? {textAlign : 'right'} :  null}
                                 onChange={(event)=>onChange({event,formID})}
                                 className="Form-input" {...config} 
                                 value={value} 
@@ -44,7 +45,7 @@ export default function FormField(
                     <FormControl  
                         style={{
                             display : 'flex',
-                            minWidth : '400px',
+                            minWidth : `${studentDropDown ? '0px' : '400px'}`,
                             marginBottom : '10px'
                         }}>
                         <InputLabel 
@@ -69,7 +70,7 @@ export default function FormField(
                                         id: config.id
                                     }}
                         >                    
-                             { renderDropDowns(arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage)}
+                             { renderDropDowns(arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage,multiPropertiesToRender)}
                         </Select>
                     </FormControl>
                 )
