@@ -1,6 +1,7 @@
 import React from 'react';
 import swal from 'sweetalert';
 import MenuItem from '@material-ui/core/MenuItem';
+import { isArray } from 'util';
 
 
 // vaildation form email and any other input
@@ -30,10 +31,6 @@ export const allFormIsVaild = (formData,dataToSubmit) => {
         // you have 2 key one form email and one for password
         dataToSubmit[key] = formData[key].value;
         formVaild = formData[key].vaild && formVaild /* the second check to avoid change formVaild to true if the last input is true and the ones before it is false don't */
-        
-        if((formData[key]).hasOwnProperty('centerID')) {
-            dataToSubmit['centerID'] = formData[key]['centerID'];
-        }
     }
     return formVaild;
 
@@ -57,16 +54,21 @@ export const failedRegister = (message) => {
 }
 
 
+const showGroupValue = (element) => {
+    return `${element.day} from ${element.timeStart} to ${element.timeEnd}`;
+}
 
-export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,menuLanguage) => {
+
+export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,menuLanguage,multiPropertiesToRender) => {
 
     // property to render -> time 
     if(isArrayOfObjects)
     {
-        return  arrayOfChoices.map((element,index)=>
+            return  arrayOfChoices.map((element,index)=>
+            
             <MenuItem 
                 key={index} 
-                value = {element[propetyToRender]}
+                value = {!multiPropertiesToRender ? ( isArray(propetyToRender)? element[propetyToRender[1]]: element[propetyToRender]) :element.groupID}
                 style = {{
                     display: 'flex',
                     justifyContent: `${menuLanguage === 'en' ? 'flex' : 'flex-end'}`,
@@ -75,10 +77,10 @@ export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,
 
                 }}
             >
-                {element[propetyToRender]} 
-            </MenuItem>
-        )
-
+                {!multiPropertiesToRender ?  isArray(propetyToRender)? element[propetyToRender[0]]: element[propetyToRender] : showGroupValue(element)} 
+            </MenuItem> 
+            )  
+              
     } else {
         return  arrayOfChoices.map((element,index)=>
             <MenuItem 
@@ -98,11 +100,7 @@ export const renderDropDowns = (arrayOfChoices,isArrayOfObjects,propetyToRender,
     }
 }
 
-
-export const  getCenterID = (keySearch,value,centersCollection,propertyID) => {
-    const object = centersCollection.find((object)=>{
-       return object[keySearch] === value
-    })
-    return object[propertyID];
+export const getGroupsDropArrayByID = (arrayOfGroups,id) => {
+    return arrayOfGroups.filter((group) => group.centerID === id )
 }
 
