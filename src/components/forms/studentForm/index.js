@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import swal from 'sweetalert';
 import FormField from '../../../reComponents/formField';
+import PoPup from './popup';
 import '../../../resources/css/additions.css';
-import {validate,allFormIsVaild,succesRegister,failedRegister,getGroupsDropArrayByID} from '../../../component_helpers/helpers';
+import {validate,allFormIsVaild,failedRegister,getGroupsDropArrayByID} from '../../../component_helpers/helpers';
 let messageTimeout ;
 
 const centersCollection = [
@@ -55,8 +55,10 @@ const groupCollection = [
 
 export default class AddStudent extends Component {
     state = {
+        generatedID : null,
         formError : false,
         formSuccess  : '',
+        file : null,
         formData : {
             studentName : {
                 element : 'input',
@@ -84,23 +86,6 @@ export default class AddStudent extends Component {
                     type : 'text',
                     id : 'student_school',
                     placeholder : 'القبة الثانوية العسكرية'
-                },
-                vaildation : {
-                    required : true,
-                },
-                vaild : false,
-                vaildationMessage : '',
-                placeholderLanguage : 'ar'
-            },
-            studentAddress : {
-                element : 'input',
-                label : 'Student Address',
-                value : '',
-                config : {
-                    name : 'student_address',
-                    type : 'text',
-                    id : 'student_address',
-                    placeholder : ' المعادي القاهرة'
                 },
                 vaildation : {
                     required : true,
@@ -218,6 +203,16 @@ export default class AddStudent extends Component {
         }
     }
 
+    updateQrFile = (file) => {
+        this.setState({
+            file : file
+        },()=> {
+            /** send here the file name ya khaled <3 */
+            console.log(this.state.file)
+            
+        })
+    }
+
     componentWillMount () {
         const {formData} = this.state;
         const newFormData = {...formData};
@@ -232,8 +227,6 @@ export default class AddStudent extends Component {
     componentWillUnmount() {
         clearTimeout(messageTimeout);
     }
-
-
 
     updateStudentForm = ({event : {target},formID}) => {
         const {formData} = this.state;
@@ -262,15 +255,9 @@ export default class AddStudent extends Component {
         const dataToSubmit = {} ;
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
         if(submitFormSuccessfuly) {
-            console.log(dataToSubmit)
             this.setState({
-                formSucces : `Add student ${dataToSubmit.studentName} successfuly 😊`
-            }, () => {
-                succesRegister(this.state.formSucces);
-                setTimeout(() => {
-                    swal.close();
-                    this.resetForm()
-                }, 2000);
+                formSuccess : `student "${dataToSubmit.studentName}"`,
+                generatedID : '2132138u23uEerweru#3' // here will be updated the id
             })
 
             /*khaled here you have object with all fields */
@@ -299,9 +286,32 @@ export default class AddStudent extends Component {
 
     }
 
+    createDialog = (message,openFlag,id) => {
+         return <PoPup 
+            open = {openFlag}
+            registerMessage = {message}
+            generatedID = {id}
+            updateQrFile = {(file) => this.updateQrFile(file)}
+
+        />
+    }
 
     render() {
-        const {formData : {studentName,studentSchool,studentAddress,studentEmail,studentPhone,fatherJob,fatherPhone,centerID,groupID},formError} = this.state;
+        const {
+            formData : {
+                        studentName,
+                        studentSchool,
+                        studentEmail,
+                        studentPhone,
+                        fatherJob,
+                        fatherPhone,
+                        centerID,
+                        groupID
+                       }
+            ,formError,
+            formSuccess,
+            generatedID
+                            } = this.state;
         return (
             <Fragment>
                 <div className="Additions-Form">
@@ -332,11 +342,6 @@ export default class AddStudent extends Component {
                         </div>
                         <div className="right">
                             <FormField
-                                formID = "studentAddress"
-                                formInfo = {studentAddress}
-                                onChange = {(element) => this.updateStudentForm(element)}
-                            />
-                            <FormField
                                 formID = "fatherJob"
                                 formInfo = {fatherJob}
                                 onChange = {(element) => this.updateStudentForm(element)}
@@ -366,6 +371,11 @@ export default class AddStudent extends Component {
                         </div>
                     </form>
                     {formError ? failedRegister('Please fill all the form fields !') : null}
+
+                    {
+                        formSuccess ? this.createDialog(formSuccess,generatedID ? true : false,generatedID) : null
+                    }
+
 
                 </div>
             </Fragment>
