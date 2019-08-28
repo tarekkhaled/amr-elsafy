@@ -1,0 +1,48 @@
+.background-popup {
+    background:  #000000bd;
+}
+
+
+.form-title-dialog {
+    border-bottom: 1px solid ;
+    font-family: 'Tajawal', sans-serif;
+
+}
+
+.instructions {
+    text-align: left;
+    margin-left: 20px;
+    
+}
+
+.instruction-title {
+    border-bottom: 1px solid rgb(112, 109, 109);
+    text-align: center;
+}
+
+.student-part {
+    text-align: center;
+    font-family: 'Tajawal', sans-serif;
+    margin-bottom: 20px
+}
+
+.student-id {
+    background: #d2c8c88c;
+    font-weight: bold;
+}
+
+.qr-form {
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+.button {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.generate-code {
+    margin-bottom: 10px;
+    float: right;
+}
