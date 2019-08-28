@@ -5,6 +5,11 @@ import '../../../resources/css/additions.css';
 import {validate,allFormIsVaild,succesRegister,failedRegister} from '../../../component_helpers/helpers';
 let messageTimeout ;
 
+function getCenterName (array,id,dataToSubmit) {
+    const object = array.find((center)=>center.centerID === id)
+    dataToSubmit.centerName = object.centerName;
+}
+
 const centersCollection = [
     {
         centerName : 'ام ابراهيم',
@@ -19,7 +24,6 @@ const centersCollection = [
         centerID : 3
     }
 ]
-
 
 const timeStartCollection = [
     {
@@ -138,7 +142,7 @@ export default class AddGroup extends Component {
 
         const {formData} = this.state;
         const newFormData = {...formData} ;
-        const newCentersChiocesObject = newFormData['centerID'];
+        const newCentersChiocesObject = newFormData['centerID']; 
         newCentersChiocesObject.arrayOfChoices = centersCollection;
         newFormData['centerID'] = newCentersChiocesObject;
         this.setState({
@@ -172,6 +176,7 @@ export default class AddGroup extends Component {
         const {formData} = this.state;
         const dataToSubmit = {} ;
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
+        getCenterName(centersCollection,dataToSubmit.centerID,dataToSubmit)
 
         if(submitFormSuccessfuly) {
             console.log(dataToSubmit)
@@ -190,7 +195,6 @@ export default class AddGroup extends Component {
                 formError : true
             })
         }
-
     }
 
     resetForm = () => {
@@ -214,7 +218,7 @@ export default class AddGroup extends Component {
         return (
             <Fragment>
                 <div className="Additions-Form">
-                    <div className="Form-title">Add Center</div>
+                    <div className="Form-title">Add Group</div>
 
                     <form onSubmit = {this.submitForm} className = "Form">
                         <FormField
