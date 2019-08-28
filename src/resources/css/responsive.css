@@ -32,4 +32,7 @@
     .Form-title {
         margin-top: 70px;
     }
+    .left {
+        margin : 0;
+    }
 }
