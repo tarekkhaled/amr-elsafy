@@ -1,5 +1,7 @@
+/* ____Navbar Large Component_____*/
+
 .Navbar {
-    height: 50px;
+    height: 60px;
     position: fixed;
     z-index: 222;
     width : 100%;
@@ -7,7 +9,153 @@
     text-align: center;
 }
 
+.Nav-logo {
+    text-align: left;
+    margin-left: 25px;
+    position: absolute;
+    margin-top: 5px;
+}
+
+.Nav-right-links {
+    position: relative;
+    top: 11px;
+    float: right;
+    margin-right: 10px;
+    display: flex;
+}
+
+.Nav-field {
+    min-width: 83px;
+}
+.dropdowns {
+    display: none;
+    transition: all 0.7s ease-in-out;
+    background: #2f253b;
+    z-index: 20px;
+}
+
+.Nav-field:hover > .dropdowns {
+    position: absolute;
+    display: block
+}
+
+.Nav-field-small:hover > .dropdowns {
+    position: absolute;
+    display: block
+}
+
+.Nav-search-box {
+    position: relative;
+    top: 12px;
+    width: max-content;
+    margin-left: 16%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5px 20px;
+    background: #ffffff17;
+    transition: all 0.7s ease-in-out;
+    min-height: 35px;
+}
+
+.Nav-search-box-small {
+
+    position: relative;
+    top: 12px;
+    width: max-content;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5px 20px;
+    background: #ffffff17;
+    transition: all 0.7s ease-in-out;
+    min-height: 35px;
+    margin-bottom: 20px;
+}
+
+.Nav-search-box:hover {
+    padding-right: 40px;
+
+}
+
+
+.Search-input {
+    background: none;
+    border : none;
+    min-width: 200px;
+    color : rgb(168, 167, 167);
+}
+
+.Search-input:focus {
+    border : none;
+    outline: none;
+}
+
+.Search-icon {
+    color : #fff;
+    padding-right: 5px;
+    
+}
 .Navbar img {
     width: 80px;
     margin-top: -15px;
+}
+
+
+
+/* ___ NavBar small Component ___*/
+.Nav-menu {
+    position: absolute;
+    max-width: 100px;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.drawer {
+    background: #2f253b;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    text-align: left;
+    transition: all 0.7s ease-in-out;
+}
+
+
+.line {
+    width : 25px;
+    height: 2px;
+    margin:6px;
+    background: rgb(13, 13, 22);
+}
+/* ___Nav Button component ____ */
+button {
+    background: none;
+    border : none;
+}
+
+.Nav-button {
+    padding: 5px 15px;
+    cursor: pointer;
+    color : inherit;
+    text-decoration: none;
+    transition: all 0.7s ease-in-out;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+
+}
+
+.Nav-button-icon {
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+.Nav-button:hover {
+    color: inherit;
+    text-decoration: none;
+    background: #241c2e;
+    
 }
