@@ -5,18 +5,22 @@ import { isArray } from 'util';
 
 
 // vaildation form email and any other input
-export const validate = ({vaildation:{required,email},value}) => {
+export const validate = ({vaildation:{required,email,postiveNumber},value}) => {
     let errorOjbect = {
         message : '',
         vaild : true
     }
 
     if (email) {
-        errorOjbect = (/\S+@\S+\.\S+/.test(value)) ? errorOjbect : {message : 'Not vaild email', vaild : false }
+        errorOjbect = (/\S+@\S+\.\S+/.test(value)) ? errorOjbect : {message : 'Not a vaild email', vaild : false }
     }
 
     if (required) {
         errorOjbect = value ? errorOjbect : {message : 'This field is required', vaild : false }
+    } 
+    if(postiveNumber) {
+        errorOjbect = (/^\+?(0|[1-9]\d*)$/.test(value)) ? errorOjbect : {message : 'Not a vaild number ', valid : false}
+        
     }
 
     return errorOjbect ;
