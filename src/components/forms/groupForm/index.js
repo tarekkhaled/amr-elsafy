@@ -51,6 +51,8 @@ const timeEndCollection = [
     },
 ]
 
+const levelsCollection = ['المستوي الاول' , 'المستوي التاني' , 'المستوي التالت']
+
 export default class AddGroup extends Component {
 
     state = {
@@ -135,6 +137,46 @@ export default class AddGroup extends Component {
 
 
             },
+            level : {
+                element : 'dropdown',
+                label : 'Choose Level',
+                value : '',
+                config : {
+                    name : 'timeEnd_choice',
+                    id : 'timeEnd_choice',
+                },
+                vaildation : {
+                    required : true,
+                },
+                vaild : false,
+                vaildationMessage : '',
+                arrayOfChoices : levelsCollection,
+                propertyToRender : 'time',
+                menuLanguage : 'ar',
+                isArrayOfObjects : false
+
+
+            },
+            sessionNumber : {
+                element : 'input',
+                label : 'Choose Session Number',
+                value : '',
+                config : {
+                    name : 'session_number',
+                    type : 'number',
+                    id : 'center_phone',
+                    placeholder : 'Session number ..'
+                },
+                vaildation : {
+                    required : true,
+                    postiveNumber : true
+                },
+                vaild : false,
+                vaildationMessage : ''
+
+
+            },
+           
         }
     }
 
@@ -176,9 +218,9 @@ export default class AddGroup extends Component {
         const {formData} = this.state;
         const dataToSubmit = {} ;
         const submitFormSuccessfuly = allFormIsVaild(formData,dataToSubmit);
-        getCenterName(centersCollection,dataToSubmit.centerID,dataToSubmit)
 
         if(submitFormSuccessfuly) {
+            getCenterName(centersCollection,dataToSubmit.centerID,dataToSubmit)
             console.log(dataToSubmit)
             this.setState({
                 formSucces : `Add Group "${dataToSubmit.centerID} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
@@ -214,7 +256,7 @@ export default class AddGroup extends Component {
 
     }
     render() {
-        const {formData : {centerID,dayChoice,timeStartChoice,timeEndChoice},formError} = this.state;
+        const {formData : {centerID,dayChoice,timeStartChoice,timeEndChoice,level,sessionNumber},formError} = this.state;
         return (
             <Fragment>
                 <div className="Additions-Form">
@@ -239,6 +281,16 @@ export default class AddGroup extends Component {
                         <FormField
                             formID = "timeEndChoice"
                             formInfo = {timeEndChoice}
+                            onChange = {(element) => this.updateGroupForm(element)}
+                        />
+                        <FormField
+                            formID = "level"
+                            formInfo = {level}
+                            onChange = {(element) => this.updateGroupForm(element)}
+                        />
+                        <FormField
+                            formID = "sessionNumber"
+                            formInfo = {sessionNumber}
                             onChange = {(element) => this.updateGroupForm(element)}
                         />
                         <button className="Form-submit" onClick={this.submitForm}>submit</button>
