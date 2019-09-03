@@ -25,7 +25,7 @@
     padding : 0px 50px;
     border-bottom: 2px solid #231c2c;
     font-size: 22px;
-    margin-top: 57px;
+    margin-top: 65px;
 }
 
 
@@ -46,6 +46,7 @@
 }
 
 .Form-input::placeholder {
+    font-weight: 500;
     padding-right: 10px;
 }
 
