@@ -33,7 +33,7 @@ class Login extends Component {
                     name : 'user_email',
                     type : 'email',
                     id : 'user_email',
-                    placeholder : 'enter your e-mail...'
+                    placeholder : 'amr@gmail.com'
                 },
                 vaildation : {
                     required : true,
@@ -50,7 +50,7 @@ class Login extends Component {
                     name : 'user_password',
                     type : 'password',
                     id : 'user_password',
-                    placeholder : 'enter your password...'
+                    placeholder : '**********'
                 },
                 vaildation : {
                     required : true,
