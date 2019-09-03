@@ -50,9 +50,6 @@ export default class PoPup extends Component {
             <Fragment>
                 <Dialog
                     className= "background-popup"
-                    style= {{
-                        minWidth : '450px',
-                    }}
                     open={this.state.openDialog}   
                     aria-labelledby="form-title-dialog"
                 >

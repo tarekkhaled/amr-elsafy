@@ -9,7 +9,10 @@
     .Form-title {
         margin-top: 70px;
     }
-
+    
+    .Form {
+        padding: 40px;
+    }
 
     .Additions-card-box {
         margin-top: 500px;

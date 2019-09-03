@@ -45,7 +45,7 @@ export default function FormField(
                     <FormControl  
                         style={{
                             display : 'flex',
-                            minWidth : `${studentDropDown ? '0px' : '400px'}`,
+                            minWidth : `${studentDropDown ? '0px' : '250px'}`,
                             marginBottom : '10px'
                         }}>
                         <InputLabel 
