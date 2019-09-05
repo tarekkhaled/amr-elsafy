@@ -4,6 +4,7 @@ import Layout from './hoComponents/layout';
 import Login from './components/login';
 import Additions from './components/additions';
 import {AddAssistant,AddStudent,AddCenter,AddGroup} from './components/forms';
+import {Students,Assistants} from './components/dataShown';
 import Statistics from './components/statistics';
 import './resources/css/App.css';
 
@@ -19,6 +20,8 @@ function Routes() {
                 <Route exact path = '/addCenterForm' component = {AddCenter}></Route>
                 <Route exact path = '/addGroupForm' component = {AddGroup}></Route>
                 <Route exact path = '/statistics' component = {Statistics}></Route>
+                <Route exact path = '/students' component = {Students}></Route>
+                <Route exact path = '/assistants' component = {Assistants}></Route>
 
             </Switch>
         </Layout>               

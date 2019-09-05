@@ -77,9 +77,9 @@ class Navbar extends Component {
 
     showNavForLargeScreen = (navObject)  => {
         return <Fragment>
-             <div className="Nav-logo">
+             <a className="Nav-logo" href="/">
                     <img alt = "logo_mr_amrElsafiy" src={Logo}/>
-                </div>
+                </a>
                 <div className="Nav-right-links">
                     {
                         this.renderPropNavButtonsForLargeScreen(navObject)
@@ -130,7 +130,6 @@ class Navbar extends Component {
                 width : '100%',
                 justifyContent : 'end'
              }
-             console.log(propsObject[key])
             if(propsObject[key]['showForAll'])
             {
                 NavArrays.push ( <div className="Nav-field-small" key ={key}>
@@ -161,9 +160,9 @@ class Navbar extends Component {
 
     showNavForSmallScreen = (NavData) => {
         return <Fragment>
-                <div className="Nav-logo">
+                <a className="Nav-logo" href="/">
                     <img alt = "logo_mr_amrElsafiy" src={Logo}/>
-                </div>
+                </a>
 
                 <div className="Nav-menu" onClick = {this.openDrawer}>
                     <div className="line"></div>

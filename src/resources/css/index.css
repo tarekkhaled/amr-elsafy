@@ -26,6 +26,5 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 svg {
-  left : 0 !important;
-  right : auto !important;
+  right : 0 !important;
 }

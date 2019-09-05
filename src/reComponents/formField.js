@@ -7,7 +7,18 @@ import {renderDropDowns} from '../component_helpers/helpers';
 
 export default function FormField(
     {   formID,
-        formInfo:{element,vaildation,vaild,vaildationMessage,config,value,label,arrayOfChoices,isArrayOfObjects,propertyToRender,menuLanguage,placeholderLanguage,multiPropertiesToRender},studentDropDown,onChange
+        formInfo:{element,
+            vaildation,vaild,
+            vaildationMessage,
+            config,value,label,arrayOfChoices
+            ,isArrayOfObjects,propertyToRender
+            ,menuLanguage,placeholderLanguage
+            ,multiPropertiesToRender
+        },
+        studentDropDown,
+        onChange,
+        labelStyling,
+        style
     }) 
 
     {
@@ -27,8 +38,8 @@ export default function FormField(
         switch (element) {
             case 'input':
                 formTemplate = (
-                    <div className="Form-field">
-                            <label className="Form-label" htmlFor={config.id}>{label}:</label>
+                    <div className="Form-field" style={{...style}}>
+                            <label style={{...labelStyling}} className="Form-label" htmlFor={config.id}>{label}:</label>
                             <input 
                                 style= {placeholderLanguage && placeholderLanguage === 'ar' ? {textAlign : 'right'} :  null}
                                 onChange={(event)=>onChange({event,formID})}

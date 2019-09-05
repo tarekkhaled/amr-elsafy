@@ -207,9 +207,7 @@ export default class AddStudent extends Component {
         this.setState({
             file : file
         },()=> {
-            /** send here the file name ya khaled <3 */
-            console.log(this.state.file)
-            
+            /** send here the file name ya khaled <3 */            
         })
     }
 

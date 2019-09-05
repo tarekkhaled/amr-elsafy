@@ -221,7 +221,6 @@ export default class AddGroup extends Component {
 
         if(submitFormSuccessfuly) {
             getCenterName(centersCollection,dataToSubmit.centerID,dataToSubmit)
-            console.log(dataToSubmit)
             this.setState({
                 formSucces : `Add Group "${dataToSubmit.centerID} ${dataToSubmit.dayChoice} from ${dataToSubmit.timeStartChoice} to ${dataToSubmit.timeEndChoice}" successfuly 😊`
             }, () => {
@@ -292,6 +291,14 @@ export default class AddGroup extends Component {
                             formID = "sessionNumber"
                             formInfo = {sessionNumber}
                             onChange = {(element) => this.updateGroupForm(element)}
+                            style = {{
+                                textAlign : 'left',
+                                fontSize : 16,
+                                marginTop : 20
+                            }}
+                            labelStyling = {{
+                                marginLeft : 0
+                            }}
                         />
                         <button className="Form-submit" onClick={this.submitForm}>submit</button>
                     </form>
