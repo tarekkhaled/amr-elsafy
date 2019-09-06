@@ -207,8 +207,27 @@ export default class AddStudent extends Component {
         this.setState({
             file : file
         },()=> {
-            /** send here the file name ya khaled <3 */            
+            this.resetForm();
+            this.setState({
+                generatedID : null
+            })         
         })
+    }
+
+    resetForm = () => {
+
+        const newFormdata = {...this.state.formData};
+        for (let key in newFormdata) {
+            if(newFormdata[key].element === 'input')
+            {
+                newFormdata[key].value = '';
+                newFormdata[key].vaild = false;
+                newFormdata[key].vaildationMessage = ''
+
+            }
+        }
+
+
     }
 
     componentWillMount () {
@@ -265,22 +284,6 @@ export default class AddStudent extends Component {
                 formError : true
             })
         }
-
-    }
-
-    resetForm = () => {
-        const newFormdata = {...this.state.formData};
-        for (let key in newFormdata) {
-            newFormdata[key].value = '';
-            newFormdata[key].vaild = false;
-            newFormdata[key].vaildationMessage = ''
-        }
-
-        this.setState({
-            formError : false,
-            formData : newFormdata,
-            formSuccess : ''
-        })
 
     }
 
@@ -371,7 +374,7 @@ export default class AddStudent extends Component {
                     {formError ? failedRegister('Please fill all the form fields !') : null}
 
                     {
-                        formSuccess ? this.createDialog(formSuccess,generatedID ? true : false,generatedID) : null
+                        generatedID ? this.createDialog(formSuccess,generatedID ? true : false,generatedID) : null
                     }
 
 

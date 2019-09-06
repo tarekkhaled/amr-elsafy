@@ -108,3 +108,33 @@ export const getGroupsDropArrayByID = (arrayOfGroups,id) => {
     return arrayOfGroups.filter((group) => group.centerID === id )
 }
 
+
+
+export const toggleDisableEnableButton = (e) => {
+    let wantedElement ;
+    let id ;
+    if(e.target.nodeName === 'BUTTON') {
+        wantedElement = e.target.firstChild
+        id = e.target.id;
+        if(wantedElement.classList.contains('fa-eye')) {
+            wantedElement.classList.replace('fa-eye' , 'fa-eye-slash')
+            return {statue : 'enable' , id : id}
+        }
+        else if(wantedElement.classList.contains('fa-eye-slash')) {
+            wantedElement.classList.replace('fa-eye-slash' , 'fa-eye')
+            return {statue : 'disable' , id : id}
+        }
+    } else {
+       wantedElement = e.target ;
+       id = e.target.parentNode.id 
+        if(wantedElement.classList.contains('fa-eye')) {
+            wantedElement.classList.replace('fa-eye' , 'fa-eye-slash')
+            return {statue : 'enable' , id : id}
+
+        }
+        else if(wantedElement.classList.contains('fa-eye-slash')) {
+            wantedElement.classList.replace('fa-eye-slash' , 'fa-eye')
+            return {statue : 'disable' , id : id}
+        }
+    }
+}

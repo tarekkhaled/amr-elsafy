@@ -1,12 +1,16 @@
 import React , {Component, Fragment} from 'react' ; 
+import Search from '../search';
 import Logo from '../../resources/img/logo.png';
 import '../../resources/css/navbar.css';
+import '../../resources/css/responsive.css'
 import NavButton from '../../reComponents/navButton';
+import {students} from '../../students.js';
 class Navbar extends Component {
     state = {
         searchValue : '',
         browserWidth : window.innerWidth,
-        openDrawer : false 
+        openDrawer : false ,
+        studentsToBeShown : [],
       
     }
     /* khaled remove this w 7ot al props de mn al parent aly hyab2 feh al navbar */
@@ -35,7 +39,7 @@ class Navbar extends Component {
                 linkTO : "/Assistants",
                 newTab : false,
                 withIcon : false,
-                showForAll : false
+                showForAll : true
     
             },
             navButton4 : {
@@ -70,10 +74,20 @@ class Navbar extends Component {
     }
 
     updateSearchBox = (e) => {
+        let searchValue = e.target.value
         this.setState({
-            [e.target.name] : e.target.value
-        })
+            [e.target.name] : searchValue 
+        },this.showStudentsInSearch(searchValue))
     }
+
+    showStudentsInSearch = (inputValue) => {
+        const studentsShown = students.filter((student) => student['studentName'].toLowerCase().includes(inputValue.toLowerCase())) 
+        this.setState({
+            studentsToBeShown :(inputValue) ? studentsShown : []
+        })
+        
+    }
+
 
     showNavForLargeScreen = (navObject)  => {
         return <Fragment>
@@ -85,11 +99,35 @@ class Navbar extends Component {
                         this.renderPropNavButtonsForLargeScreen(navObject)
                     }
                 </div>
-                <div className="Nav-search-box">
-                    <i className="fa fa-search Search-icon"/>
-                    <input name="searchValue" onChange={this.updateSearchBox} className="Search-input" type="text" placeholder="Search..."/>
-                </div>
+                <Search 
+                    searchOnChange = {(e) => {this.updateSearchBox(e)}}
+                    resultsToBeShown = {this.state.studentsToBeShown}
+                />
         </Fragment>
+    }
+    
+    showNavForSmallScreen = (NavData) => {
+        return <Fragment>
+                <a className="Nav-logo" href="/">
+                    <img alt = "logo_mr_amrElsafiy" src={Logo}/>
+                </a>
+
+                <div className="Nav-menu" onClick = {this.openDrawer}>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                </div>
+
+                
+                {this.state.openDrawer ? <div className="drawer">
+                    <Search 
+                        searchOnChange = {(e) => {this.updateSearchBox(e)}}
+                        resultsToBeShown = {this.state.studentsToBeShown}
+                    />
+                    {this.renderPropNavButtonsForSmallScreen(NavData)} 
+                    </div> : null}
+        
+             </Fragment>
     }
 
     renderPropNavButtonsForLargeScreen = (propsObject) => {
@@ -158,29 +196,7 @@ class Navbar extends Component {
         return NavArrays;
     }
 
-    showNavForSmallScreen = (NavData) => {
-        return <Fragment>
-                <a className="Nav-logo" href="/">
-                    <img alt = "logo_mr_amrElsafiy" src={Logo}/>
-                </a>
-
-                <div className="Nav-menu" onClick = {this.openDrawer}>
-                    <div className="line"></div>
-                    <div className="line"></div>
-                    <div className="line"></div>
-                </div>
-
-                
-                {this.state.openDrawer ? <div className="drawer">
-                    <div className="Nav-search-box-small">
-                            <i className="fa fa-search Search-icon"/>
-                            <input name="searchValue" onChange={this.updateSearchBox} className="Search-input" type="text" placeholder="Search..."/>
-                    </div>
-                    {this.renderPropNavButtonsForSmallScreen(NavData)} 
-                    </div> : null}
-        
-             </Fragment>
-    }
+    
 
     openDrawer = (e) => {
 

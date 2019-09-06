@@ -127,6 +127,8 @@ export default class AddCenter extends Component {
         })
 
     }
+
+    
     render() {
         const {formData : {centerPhone,centerAddress,centerName},formError} = this.state;
         return (

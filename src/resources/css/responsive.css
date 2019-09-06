@@ -26,6 +26,13 @@
     .left {
         margin : 0;
     }
+    .Search-input{
+        min-width: 200px;
+    }
+    .Nav-search-box {
+        margin: auto;
+        margin-bottom: 20px;
+    }
 }
 
 @media screen and (min-width : 500px ) and (max-width : 900px) {
@@ -37,6 +44,10 @@
     }
     .left {
         margin : 0;
+    }
+    .Nav-search-box {
+        margin: auto;
+        margin-bottom: 20px;
     }
     
 }

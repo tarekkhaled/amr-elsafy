@@ -218,9 +218,8 @@ const groups = [
 ]
 
 
-export default class index extends Component {
+export default class Students extends Component {
     state = {
-        showData : false,
         formData : {
             centerID : {
                 element : 'dropdown',
@@ -251,8 +250,17 @@ export default class index extends Component {
         }
     }
 
-    removeStudent = (id) => {
-        console.log(id)
+    removeStudent = (e) => {
+        let returnObject ;
+
+        if(e.target.nodeName === 'BUTTON') {
+            console.log(e.target.id)
+            returnObject = {id: (e.target.id)};
+        }
+        else {
+            returnObject = {id :(e.target.parentNode.id)}
+        }
+        console.log(returnObject)
     }
     componentDidMount(){
         const {formData} = this.state;
@@ -282,12 +290,10 @@ export default class index extends Component {
         })
         
     }
-
     DealWithFireBase = (formData) => {
         const dataToSubmit = {} ;
         if(allFormIsVaild(formData,dataToSubmit)) {
             const foundedGroup = groups.find((group) => group.centerID === dataToSubmit.centerID && group.groupID === dataToSubmit.groupID)
-            console.log(dataToSubmit)
             if(foundedGroup && foundedGroup.students) {
                 return this.renderTable(foundedGroup,foundedGroup.students)
             } else {
@@ -297,8 +303,6 @@ export default class index extends Component {
             
         }
     }
-
-
     renderTable = (foundedGroup,rows) => {
     return  <Fragment>
          <div className="students-number">
@@ -338,7 +342,7 @@ export default class index extends Component {
                                 icon = "fas fa-trash"
                                 tableNav = 'true'
                                 id = {row.studentID}
-                                onChange = {(id) => {this.removeStudent(id)}}
+                                onChange = {(e) => {this.removeStudent(e)}}
                                 
                             /> 
                         </StyledTableCell>
