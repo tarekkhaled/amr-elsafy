@@ -4,8 +4,9 @@ import Navbar from '../components/navbar';
 export default function Layout({children}) {
     return (
         <div>
-            <Navbar/>
+            <Navbar  />
             {children}
         </div>
     )
 }
+

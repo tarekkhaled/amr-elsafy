@@ -26,9 +26,6 @@ export const validate = ({vaildation:{required,email,postiveNumber},value}) => {
     return errorOjbect ;
 }
 
-
-
-
 export const allFormIsVaild = (formData,dataToSubmit) => {
     let formVaild = true; 
     for (let key in formData) {
@@ -39,7 +36,6 @@ export const allFormIsVaild = (formData,dataToSubmit) => {
     return formVaild;
 
 }
-
 
 export const succesRegister = (message,buttonName) => {
 
@@ -108,8 +104,6 @@ export const getGroupsDropArrayByID = (arrayOfGroups,id) => {
     return arrayOfGroups.filter((group) => group.centerID === id )
 }
 
-
-
 export const toggleDisableEnableButton = (e) => {
     let wantedElement ;
     let id ;
@@ -137,4 +131,10 @@ export const toggleDisableEnableButton = (e) => {
             return {statue : 'disable' , id : id}
         }
     }
+}
+
+export const getIndexForItem  = (id,array,propertyID) => {
+    return array.findIndex((element) => {
+        return element[propertyID] === id 
+    })
 }

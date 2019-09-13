@@ -33,6 +33,27 @@
         margin: auto;
         margin-bottom: 20px;
     }
+    .students-move {
+        margin-top: 5rem;
+        border: 1px solid #434244;
+        min-height: 250px;
+        display: grid;
+        text-align: center;
+    
+    }
+    
+    .student-submit {
+        margin-bottom : 20px;
+    }
+    .form-field-nav {
+        margin : 20px;
+    }
+    
+    .students-move-left {
+        border-bottom: 1px solid #434244 ;
+    }
+    
+    
 }
 
 @media screen and (min-width : 500px ) and (max-width : 900px) {
@@ -49,5 +70,54 @@
         margin: auto;
         margin-bottom: 20px;
     }
+    .students-move {
+    margin-top: 5rem;
+    border: 1px solid #434244;
+    min-height: 250px;
+    display: grid;
+    text-align: center;
+
+}
+
+.student-submit {
+    margin-bottom : 20px;
+}
+.form-field-nav {
+    margin : 20px;
+}
+
+.students-move-left {
+    border-bottom: 1px solid #434244 ;
+}
+}
+
+@media screen and (min-width : 900px) {
+    .students-move {
+        margin-top: 5rem;
+        border: 1px solid #434244;
+        min-height: 250px;
+        display: flex;
+        text-align: center;
+        grid-template-areas: 'one two';
+    }
+    
+    .students-move-left {
+        width : 50%;
+        
+    }
+    .students-move-right {
+        width : 50%;
+    }
+    .student-submit {
+        margin-bottom : 20px;
+    }
+    .form-field-nav {
+        margin : 20px;
+    }
+    
+    .students-move-left {
+        border-bottom: 1px solid #434244 ;
+    }
+    
     
 }

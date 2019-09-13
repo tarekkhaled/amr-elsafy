@@ -19,7 +19,7 @@ export default class Search extends Component {
         
     }
   render() {
-      const {searchOnChange,resultsToBeShown} = this.props;
+      const {searchOnChange,resultsToBeShown,onResultClick} = this.props;
         return (
                 <div>
                     <div className="Nav-search-box">
@@ -29,9 +29,9 @@ export default class Search extends Component {
                             {this.state.changeFlag && resultsToBeShown.map((result,i)=> {
                                 return <NavButton 
                                     name = {result.studentName}
-                                    withLink = {true}
-                                    linkTO = {`/student/${result.studentID}`}
                                     key = {i}
+                                    onClickk = {(result) => {onResultClick(result)}}
+                                    result = {result}
                                     style = {{
                                         backgroundColor : '#3d3448',
                                         width : '100%',

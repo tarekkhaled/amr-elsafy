@@ -68,6 +68,7 @@
     min-width: inherit;
     width: 100%;
     background: #322b3b;
+    z-index: 99999;
 }
 
 .no-found {

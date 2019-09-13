@@ -13,9 +13,15 @@ class Navbar extends Component {
         studentsToBeShown : [],
       
     }
-    /* khaled remove this w 7ot al props de mn al parent aly hyab2 feh al navbar */
     static defaultProps = {
         NavData : {
+            navButton0 : {
+                withLink : true,
+                linkTO : "/Groups_Centers_info",
+                name : 'Groups',
+                withIcon : false,
+                showForAll : true
+            },
             navButton1 : {
                 withLink : true,
                 name : "Additions",
@@ -23,6 +29,9 @@ class Navbar extends Component {
                 newTab : false,
                 withIcon : false,
                 showForAll : true,
+                handleDataBase : {}
+
+
             },
             navButton2 : {
                 withLink : true,
@@ -67,19 +76,18 @@ class Navbar extends Component {
                 dropdowns : true,
                 showForAll : true
             },
+           
 
         },
         profileName : 'tarek',
         whoEnter : 'boss'
     }
-
     updateSearchBox = (e) => {
         let searchValue = e.target.value
         this.setState({
             [e.target.name] : searchValue 
         },this.showStudentsInSearch(searchValue))
     }
-
     showStudentsInSearch = (inputValue) => {
         const studentsShown = students.filter((student) => student['studentName'].toLowerCase().includes(inputValue.toLowerCase())) 
         this.setState({
@@ -87,8 +95,6 @@ class Navbar extends Component {
         })
         
     }
-
-
     showNavForLargeScreen = (navObject)  => {
         return <Fragment>
              <a className="Nav-logo" href="/">
@@ -105,7 +111,6 @@ class Navbar extends Component {
                 />
         </Fragment>
     }
-    
     showNavForSmallScreen = (NavData) => {
         return <Fragment>
                 <a className="Nav-logo" href="/">
@@ -129,7 +134,6 @@ class Navbar extends Component {
         
              </Fragment>
     }
-
     renderPropNavButtonsForLargeScreen = (propsObject) => {
         const NavArrays = []
         for(let key in propsObject) {
@@ -144,7 +148,7 @@ class Navbar extends Component {
                         <div className="dropdowns">
                             <NavButton
                                 withLink={true}
-                                destnation="/profile"
+                                linkTO="/profile"
                                 name="Profile"
                             />
                             <NavButton
@@ -160,7 +164,6 @@ class Navbar extends Component {
         }
         return NavArrays;
     }
-
     renderPropNavButtonsForSmallScreen = (propsObject) => {
         const NavArrays = []
         for(let key in propsObject) {
@@ -195,9 +198,6 @@ class Navbar extends Component {
         }
         return NavArrays;
     }
-
-    
-
     openDrawer = (e) => {
 
         this.setState({
@@ -210,7 +210,6 @@ class Navbar extends Component {
             browserWidth : window.innerWidth
         })
     }
-
     render() {
         const {NavData} = this.props;
         window.addEventListener('resize', this.updateBrowserWidth);

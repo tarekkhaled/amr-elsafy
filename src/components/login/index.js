@@ -129,6 +129,7 @@ class Login extends Component {
     render () {
         const {formData : {email,password},formError} = this.state;
         return (
+            
             <div className="Additions-Form">
                 <form className = "Form" onSubmit={this.submitForm}>
                     <FormField 

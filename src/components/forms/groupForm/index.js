@@ -134,16 +134,14 @@ export default class AddGroup extends Component {
                 propertyToRender : 'time',
                 menuLanguage : 'ar',
                 isArrayOfObjects : true
-
-
             },
             level : {
                 element : 'dropdown',
                 label : 'Choose Level',
                 value : '',
                 config : {
-                    name : 'timeEnd_choice',
-                    id : 'timeEnd_choice',
+                    name : 'level_choice',
+                    id : 'level_choice',
                 },
                 vaildation : {
                     required : true,
@@ -154,8 +152,6 @@ export default class AddGroup extends Component {
                 propertyToRender : 'time',
                 menuLanguage : 'ar',
                 isArrayOfObjects : false
-
-
             },
             sessionNumber : {
                 element : 'input',
@@ -173,10 +169,7 @@ export default class AddGroup extends Component {
                 },
                 vaild : false,
                 vaildationMessage : ''
-
-
             },
-           
         }
     }
 
@@ -260,7 +253,6 @@ export default class AddGroup extends Component {
             <Fragment>
                 <div className="Additions-Form">
                     <div className="Form-title">Add Group</div>
-
                     <form onSubmit = {this.submitForm} className = "Form">
                         <FormField
                             formID = "centerID"

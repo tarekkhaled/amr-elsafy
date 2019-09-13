@@ -202,7 +202,6 @@ export default class AddStudent extends Component {
             }
         }
     }
-
     updateQrFile = (file) => {
         this.setState({
             file : file

@@ -1,8 +1,10 @@
 import Students from './students';
 import Assistants from './assistants';
+import Groups from './groups';
 
 
 export {
     Students,
-    Assistants
+    Assistants,
+    Groups
 }
