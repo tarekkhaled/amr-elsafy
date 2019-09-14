@@ -18,19 +18,22 @@ export default class Search extends Component {
         }
         
     }
-  render() {
-      const {searchOnChange,resultsToBeShown,onResultClick} = this.props;
+
+    render() {
+      const {searchOnChange,resultsToBeShown,onResultClick,placeHolder,yesLink} = this.props;
+      console.log(placeHolder)
         return (
                 <div>
                     <div className="Nav-search-box">
                             <i className="fa fa-search Search-icon"/>
-                            <input name="searchValue" onChange={(e) => {searchOnChange(e);this.updateFlag(e);}}className="Search-input" type="text" placeholder="Search..."/>
+                            <input   name="searchValue" onChange={(e) => {searchOnChange(e);this.updateFlag(e);}}className="Search-input" type="text" placeholder={placeHolder ? placeHolder : 'Search ...'}/>
                             <div className="Nav-search-box-results">
                             {this.state.changeFlag && resultsToBeShown.map((result,i)=> {
                                 return <NavButton 
-                                    name = {result.studentName}
+                                    withLink = {yesLink ? 'true' : false}
+                                    linkTO = {`/student/${result.studentID}`}                                    name = {result.studentName}
                                     key = {i}
-                                    onClickk = {(result) => {onResultClick(result)}}
+                                    onClickk = {(result) => {onResultClick && onResultClick(result)}}
                                     result = {result}
                                     style = {{
                                         backgroundColor : '#3d3448',

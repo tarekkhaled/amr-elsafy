@@ -6,6 +6,7 @@ import Additions from './components/additions';
 import {AddAssistant,AddStudent,AddCenter,AddGroup} from './components/forms';
 import {Students,Assistants,Groups} from './components/dataShown';
 import Statistics from './components/statistics';
+import FilterBy from './components/filterBy';
 import './resources/css/App.css';
 
 function Routes() {
@@ -23,6 +24,8 @@ function Routes() {
                 <Route exact path = '/students' component = {Students}></Route>
                 <Route exact path = '/assistants' component = {Assistants}></Route>
                 <Route exact path = '/Groups_Centers_info' component = {Groups}></Route>
+                <Route exact path = '/filterBy_fatherJob' component = {FilterBy}></Route>
+                <Route exact path = '/filterBy_schoolName' component = {FilterBy}></Route>
             </Switch>
         </Layout>               
     </Fragment>

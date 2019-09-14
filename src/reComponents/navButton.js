@@ -7,8 +7,8 @@ export default function NavButton({name,linkTO,withLink,withIcon,icon,newTab,sty
         <Fragment>
             {
                 (!tableNav) ?
-                     withLink ? <a   style={{...style}} className ="Nav-button" href={linkTO} target = {newTab ? '_blank' : null} >  {name ? name : <i className = {icon} />} </a>:
-                <button className="Nav-button" style ={{...style}} onClick ={(e)=>{onClickk(result);e.preventDefault()}}> 
+                     withLink ? <a   style={{...style}} className ="Nav-button" href={linkTO} target = {newTab ? '_blank' : null} >  {name ? name : <i className = {icon} />} </a>: 
+                <button className="Nav-button" style ={{...style}} onClick ={(e)=>{onClickk && onClickk(result);e.preventDefault()}}> 
                         {name ? name :  <i className = {icon} />}
                     {(withIcon) ? <i className ={icon + " Nav-button-icon"}/> : null}
                 </button>   :  

@@ -95,7 +95,7 @@ const centers = [
 ]
 
 export default class Create extends Component {
-
+   
     state = {
         formData : {
             centerID : {
@@ -134,7 +134,18 @@ export default class Create extends Component {
         }
     }
 
+
+    componentDidUpdate(prevProps,prevState) {
+        if (this.props.open !== prevState.open) {
+          this.setState({
+              open : !prevState.open
+          })
+        }
+    }
+
+
     closePopUP = (e)=> {
+     this.props.fn()
        this.setState({
            open : !this.state.open
        })
@@ -173,6 +184,7 @@ export default class Create extends Component {
     }
 
     submitButton = (e) => {
+        this.props.fn();
         const {dataToSubmit,formData : {centerID,groupID}} = this.state;
         const newDataToSubmit = {...dataToSubmit};
         newDataToSubmit['newCenter_ID'] = centerID.value;
@@ -188,6 +200,7 @@ export default class Create extends Component {
     }
 
     render() {
+
         const {open,formData:{centerID,groupID}} = this.state ; 
         return (
             <Dialog  open={open} aria-labelledby="form-dialog-title">

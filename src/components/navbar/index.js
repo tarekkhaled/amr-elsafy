@@ -15,6 +15,13 @@ class Navbar extends Component {
     }
     static defaultProps = {
         NavData : {
+            navButton_1 : {
+                withLink : false,
+                name : "filter by",
+                searching : true,
+                dropdowns : true,
+                showForAll : true
+            },
             navButton0 : {
                 withLink : true,
                 linkTO : "/Groups_Centers_info",
@@ -76,7 +83,6 @@ class Navbar extends Component {
                 dropdowns : true,
                 showForAll : true
             },
-           
 
         },
         profileName : 'tarek',
@@ -107,6 +113,7 @@ class Navbar extends Component {
                 </div>
                 <Search 
                     searchOnChange = {(e) => {this.updateSearchBox(e)}}
+                    yesLink = 'true'
                     resultsToBeShown = {this.state.studentsToBeShown}
                 />
         </Fragment>
@@ -128,6 +135,7 @@ class Navbar extends Component {
                     <Search 
                         searchOnChange = {(e) => {this.updateSearchBox(e)}}
                         resultsToBeShown = {this.state.studentsToBeShown}
+                        yesLink = "true"
                     />
                     {this.renderPropNavButtonsForSmallScreen(NavData)} 
                     </div> : null}
@@ -144,7 +152,20 @@ class Navbar extends Component {
                         {...propsObject[key]}
                     />
                     {
-                        (propsObject[key]['dropdowns'] && propsObject[key]['dropdowns']=== true) ?  
+                        (propsObject[key]['dropdowns'] && propsObject[key]['dropdowns']=== true) ? 
+                        (propsObject[key]['searching']) ? 
+                            <div className = "dropdowns">
+                                <NavButton
+                                    withLink={true}
+                                    linkTO="/filterBy_fatherJob"
+                                    name="filter by father job"
+                                />
+                                <NavButton
+                                    withLink={true}
+                                    linkTO="/filterBy_schoolName"
+                                    name="filter by school name"
+                                />
+                            </div> :
                         <div className="dropdowns">
                             <NavButton
                                 withLink={true}
@@ -178,11 +199,24 @@ class Navbar extends Component {
                         {...propsObject[key]}
                     />
                     {
-                        (propsObject[key]['dropdowns'] && propsObject[key]['dropdowns']=== true) ?  
+                        (propsObject[key]['dropdowns'] && propsObject[key]['dropdowns']=== true) ? 
+                        (propsObject[key]['searching']) ? 
+                            <div className = "dropdowns">
+                                <NavButton
+                                    withLink={true}
+                                    linkTO="/filterBy_fatherJob"
+                                    name="filter by father job"
+                                />
+                                <NavButton
+                                    withLink={true}
+                                    linkTO="/filterBy_schoolName"
+                                    name="filter by school name"
+                                />
+                            </div> :
                         <div className="dropdowns">
                             <NavButton
                                 withLink={true}
-                                destnation="/profile"
+                                linkTO="/profile"
                                 name="Profile"
                             />
                             <NavButton

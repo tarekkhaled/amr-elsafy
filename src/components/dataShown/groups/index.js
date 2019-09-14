@@ -208,6 +208,11 @@ export default class Centers_Groups_data extends Component {
                 groupID : ''
             }
     }
+    closePopup = (e) => {
+        this.setState({
+            popUP : false
+        })
+    }
     componentDidMount(){
         this.setState({
             centersCollection : centers,
@@ -243,7 +248,6 @@ export default class Centers_Groups_data extends Component {
         console.log(returnObject)
     }
     showStudentsInSearch = (inputValue) => {
-        const {formData : {centerID,groupID}} = this.state;
         /* here the id of group and center that selected for get the array of students inside this group*/
         const studentsShown = students.filter((student) => student['studentName'].toLowerCase().includes(inputValue.toLowerCase())) 
         this.setState({
@@ -272,6 +276,7 @@ export default class Centers_Groups_data extends Component {
         }
         if(table === 'center') {
             const index = getIndexForItem(id,this.state.centersCollection,'centerID');
+            console.log(index)
             // al mafrood ncheck b2a 3la students number fe al center dh lw 0 yms7 3ltool
             // lw la my3mla4 7aga 
             /*
@@ -282,6 +287,7 @@ export default class Centers_Groups_data extends Component {
         }
         else {
             const index = getIndexForItem(id,this.state.groupsCollection,'groupID');
+            console.log(index)
             // al mafrood ncheck b2a 3la students number fe al center dh lw 0 yms7 3ltool
             // lw la my3mla4 7aga 
 
@@ -292,7 +298,7 @@ export default class Centers_Groups_data extends Component {
         }
     }
     showTransferPoPup = (e) => {
-        return <POPUP open = {this.state.popUP}  old ={this.state.selectedGroupToMove}/>
+        return <POPUP open = {true}  old ={this.state.selectedGroupToMove} fn = {this.closePopup}/>
     }
     dangerousRemoveCenterOrGroup = (e,table) => {
         const id = e.target.id;
@@ -467,37 +473,25 @@ export default class Centers_Groups_data extends Component {
         })     
     }
     resultFromSearch = (studentObject) => { 
-        const {formData : {centerID,groupID}} = this.state
         /** Part of student in search when clicked */
         const {dataToSubmit} = this.state;
         const newDataToSubmit = {...dataToSubmit};
         let newArrays = newDataToSubmit['studentsToMove'];
         newArrays = [...newArrays,studentObject]
         newDataToSubmit['studentsToMove'] = newArrays;
-
-        /** Part of put centerID,GroupID in dataToSubmit */
-        let newGroupID = newDataToSubmit['groupID'];
-        newGroupID = groupID.value;
-        let newCenterID = newDataToSubmit['centerID'];
-        newCenterID = centerID.value;
-
-        newDataToSubmit['centerID'] = newGroupID;
-        newDataToSubmit['groupID'] =  newCenterID;
         this.setState({
             dataToSubmit : newDataToSubmit 
         })     
     }
     submitForm = (e) => {
-        const {formData : {centerID_ToGO,groupID_ToGO}} = this.state;
+        const {formData : {centerID_ToGO,groupID_ToGO,centerID,groupID}} = this.state;
         e.preventDefault();
         const {dataToSubmit} = this.state;
         const newDataToSubmit = {...dataToSubmit};
-        let newCenterToGo = newDataToSubmit['centerID_ToGO'];
-        newCenterToGo = centerID_ToGO.value;
-        let newGroupToGo = newDataToSubmit['centerID_ToGO'];
-        newGroupToGo = groupID_ToGO.value;
-        newDataToSubmit['groupID_ToGO'] = newGroupToGo;
-        newDataToSubmit['centerID_ToGO'] = newCenterToGo;
+        newDataToSubmit['groupID_ToGO'] = groupID_ToGO.value;
+        newDataToSubmit['centerID_ToGO'] = centerID_ToGO.value;
+        newDataToSubmit['centerID'] = centerID.value;
+        newDataToSubmit['groupID'] = groupID.value;
         const formData = this.state.formData ;
         const newFormData = {...formData} ;
         const newGroupsElement = newFormData['groupID'];
@@ -509,15 +503,12 @@ export default class Centers_Groups_data extends Component {
         this.setState({
             formData : newFormData
         })
-
         this.setState({
             dataToSubmit : newDataToSubmit
         }, () => {
             console.log(this.state.dataToSubmit);
             //window.location.assign('/Groups_Centers_info'); /** khaled */
         })
-
-        
     }
     render() {
         const {centersCollection,groupsCollection,formData : {centerID,centerID_ToGO,groupID_ToGO,groupID},dataToSubmit : {studentsToMove},popUP} = this.state;
